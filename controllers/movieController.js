@@ -1,9 +1,25 @@
 const Movie = require('../models/movieModel');
+const APIFeatures = require('../utils/apiFeatures');
+
+exports.aliasTopMovies = (req, res, next) => {
+  req.query.limit = '10';
+  req.query.sort = '-popularity';
+  req.query.fields = 'original_title,genres';
+
+  next();
+};
 
 exports.getAllMovies = async (req, res) => {
   try {
-    const movies = await Movie.find();
+    // EXECUTE QUERY
+    const features = new APIFeatures(Movie.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+    const movies = await features.query;
 
+    // SEND RESPONSE
     res.status(200).json({
       status: 'success',
       results: movies.length,
@@ -50,7 +66,7 @@ exports.createMovie = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: 'fail',
-      message: 'Oglitingt data har skickats!',
+      message: err,
     });
   }
 };
@@ -76,9 +92,18 @@ exports.updateMovie = async (req, res) => {
   }
 };
 
-exports.deleteMovie = (req, res) => {
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
+exports.deleteMovie = async (req, res) => {
+  try {
+    const movie = await Movie.findByIdAndDelete(req.params.id);
+
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
 };
