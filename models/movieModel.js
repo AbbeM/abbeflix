@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const movieSchema = new mongoose.Schema(
   {
@@ -78,6 +79,7 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Du måste ange adressen till trailern!'],
     },
+    slug: String,
   },
   {
     toJSON: { virtuals: true },
@@ -88,6 +90,25 @@ const movieSchema = new mongoose.Schema(
 movieSchema.virtual('duration').get(function () {
   return this.budget / 8;
 });
+
+// DOCUMENT MEDELWARE: Runs before .save() and .create()
+movieSchema.pre('save', function (next) {
+  this.slug = slugify(this.original_title, { lower: true });
+
+  next();
+});
+
+// movieSchema.pre('save', function (next) {
+//   console.log('Sparar filmen...');
+
+//   next();
+// });
+
+// movieSchema.post('save', function (doc, next) {
+//   console.log(doc);
+
+//   next();
+// });
 
 const Movie = mongoose.model('Movie', movieSchema);
 
