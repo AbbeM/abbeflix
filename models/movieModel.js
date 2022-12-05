@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+const validator = require('validator');
 
 const movieSchema = new mongoose.Schema(
   {
@@ -9,6 +10,7 @@ const movieSchema = new mongoose.Schema(
       trim: true,
       maxLength: [40, 'Rubriken är för lång!'],
       minLength: [2, 'Rubriken är för kort!'],
+      // validate: [validator.isAlpha, 'Namen får ej innehålla mer än bokstäver'],
     },
     adult: {
       type: Boolean,
@@ -35,6 +37,8 @@ const movieSchema = new mongoose.Schema(
     popularity: {
       type: Number,
       default: 0,
+      min: [0, '0 är minst!'],
+      max: [10, '10 är max!'],
     },
     poster_path: {
       type: String,
@@ -51,6 +55,13 @@ const movieSchema = new mongoose.Schema(
     runtime: {
       type: Number,
       default: 0,
+      validate: {
+        validator: function (val) {
+          // this only points to current document on NEW document creation
+          return val < this.price;
+        },
+        message: 'failed {VALUE}',
+      },
     },
     spoken_languages: [String],
     status: {
@@ -79,6 +90,10 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Du måste ange adressen till trailern!'],
     },
+    secret: {
+      type: Boolean,
+      default: false,
+    },
     slug: String,
   },
   {
@@ -98,6 +113,29 @@ movieSchema.pre('save', function (next) {
   next();
 });
 
+// QUERY MEDELWARE: Runs before .find()
+movieSchema.pre(/^find/, function (next) {
+  this.find({ secret: { $ne: true } });
+  this.start = Date.now();
+
+  next();
+});
+
+movieSchema.post(/^find/, function (docs, next) {
+  console.log(`Query took ${Date.now() - this.start} milliseconds!`);
+  next();
+});
+
+// AGGREGATION MEDELWARE
+movieSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { secret: { $ne: true } } });
+  next();
+});
+
+const Movie = mongoose.model('Movie', movieSchema);
+
+module.exports = Movie;
+
 // movieSchema.pre('save', function (next) {
 //   console.log('Sparar filmen...');
 
@@ -109,7 +147,3 @@ movieSchema.pre('save', function (next) {
 
 //   next();
 // });
-
-const Movie = mongoose.model('Movie', movieSchema);
-
-module.exports = Movie;
