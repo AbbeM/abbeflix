@@ -199,3 +199,17 @@ exports.getMonthlyPlan = async (req, res) => {
     });
   }
 };
+
+exports.importMovies = async (req, res) => {
+  try {
+    res.status(200).json({
+      status: 'success',
+      message: 'Hej Iddis',
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
