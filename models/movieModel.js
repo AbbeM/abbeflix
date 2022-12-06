@@ -30,6 +30,7 @@ const movieSchema = new mongoose.Schema({
   imdb_id: {
     type: String,
     default: null,
+    unique: [true, 'Filmen måste vara unik!'],
     minLength: [9, 'Ange rätt id! Iden måste innehålla 9 karaktärer!'],
     maxLength: [9, 'Ange rätt id! Iden måste innehålla 9 karaktärer!'],
     validate: {
@@ -43,6 +44,7 @@ const movieSchema = new mongoose.Schema({
   original_title: {
     type: String,
     required: [true, 'Du måste ange rubriken!'],
+    unique: [true, 'Filmen måste vara unik!'],
   },
   overview: {
     type: String,

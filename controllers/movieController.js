@@ -157,7 +157,7 @@ exports.getMonthlyPlan = async (req, res) => {
       },
       {
         $match: {
-          relaseDate: {
+          release_date: {
             $gte: new Date(`${year}-01-01`),
             $lte: new Date(`${year}-12-31`),
           },
@@ -165,13 +165,14 @@ exports.getMonthlyPlan = async (req, res) => {
       },
       {
         $group: {
-          _id: { $moth: '$relaseDate' },
+          // _id: { $month: '$release_date' },
+          _id: '$genres',
           numMovies: { $sum: 1 },
-          movies: { $push: '$name' },
+          movies: { $push: '$original_title' },
         },
       },
       {
-        $addField: { month: '$_id' },
+        $addFields: { genre: '$_id.name' },
       },
       {
         $project: {
@@ -182,7 +183,7 @@ exports.getMonthlyPlan = async (req, res) => {
         $sort: { numMovies: -1 },
       },
       {
-        $limit: 12,
+        $limit: 100,
       },
     ]);
 
