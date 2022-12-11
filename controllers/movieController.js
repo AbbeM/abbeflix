@@ -1,5 +1,7 @@
 const Movie = require('../models/movieModel');
 const APIFeatures = require('../utils/apiFeatures');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/AppError');
 
 exports.aliasTopMovies = (req, res, next) => {
   req.query.limit = '10';
@@ -9,194 +11,157 @@ exports.aliasTopMovies = (req, res, next) => {
   next();
 };
 
-exports.getAllMovies = async (req, res) => {
-  try {
-    // EXECUTE QUERY
-    const features = new APIFeatures(Movie.find(), req.query)
-      .filter()
-      .sort()
-      .limitFields()
-      .paginate();
-    const movies = await features.query;
+exports.getAllMovies = catchAsync(async (req, res, next) => {
+  // EXECUTE QUERY
+  const features = new APIFeatures(Movie.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const movies = await features.query;
 
-    // SEND RESPONSE
-    res.status(200).json({
-      status: 'success',
-      results: movies.length,
-      data: {
-        movies,
-      },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
+  // SEND RESPONSE
+  res.status(200).json({
+    status: 'success',
+    results: movies.length,
+    data: {
+      movies,
+    },
+  });
+});
+
+exports.getMovie = catchAsync(async (req, res, next) => {
+  const movie = await Movie.findById(req.params.id);
+
+  if (!movie) {
+    return next(new AppError('No movie found with that id', 404));
   }
-};
 
-exports.getMovie = async (req, res) => {
-  try {
-    const movie = await Movie.findById(req.params.id);
+  res.status(200).json({
+    status: 'success',
+    data: {
+      movie,
+    },
+  });
+});
 
-    res.status(200).json({
-      status: 'success',
-      data: {
-        movie,
-      },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
+exports.createMovie = catchAsync(async (req, res, next) => {
+  const newMovie = await Movie.create(req.body);
+
+  res.status(201).json({
+    status: 'success',
+    data: {
+      movie: newMovie,
+    },
+  });
+});
+
+exports.updateMovie = catchAsync(async (req, res, next) => {
+  const movie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!movie) {
+    return next(new AppError('No movie found with that id', 404));
   }
-};
 
-exports.createMovie = async (req, res) => {
-  try {
-    const newMovie = await Movie.create(req.body);
+  res.status(200).json({
+    status: 'success',
+    data: {
+      movie,
+    },
+  });
+});
 
-    res.status(201).json({
-      status: 'success',
-      data: {
-        movie: newMovie,
-      },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: 'fail',
-      message: err,
-    });
+exports.deleteMovie = catchAsync(async (req, res, next) => {
+  const movie = await Movie.findByIdAndDelete(req.params.id);
+
+  if (!movie) {
+    return next(new AppError('Kunde inte hitta film med angiven id!', 404));
   }
-};
 
-exports.updateMovie = async (req, res) => {
-  try {
-    const movie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
 
-    res.status(200).json({
-      status: 'success',
-      data: {
-        movie,
+exports.getMovieStats = catchAsync(async (req, res, next) => {
+  const stats = await Movie.aggregate([
+    {
+      $match: { budget: { $gte: 0 } },
+    },
+    {
+      $group: {
+        _id: { $toUpper: '$funny' },
+        numMovies: { $sum: 1 },
+        avgRating: { $avg: '$popularity' },
+        avgRuntime: { $avg: '$runtime' },
+        minRuntime: { $min: '$runtime' },
+        maxRuntime: { $max: '$runtime' },
+        sumRuntime: { $sum: '$runtime' },
       },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
-  }
-};
+    },
+    {
+      $sort: { avgRuntime: 1 },
+    },
+    // {
+    //   $match: { _id: { $ne: 'NOT-FUN' } },
+    // },
+  ]);
 
-exports.deleteMovie = async (req, res) => {
-  try {
-    const movie = await Movie.findByIdAndDelete(req.params.id);
+  res.status(200).json({
+    status: 'success',
+    data: {
+      stats,
+    },
+  });
+});
 
-    res.status(204).json({
-      status: 'success',
-      data: null,
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
-  }
-};
+exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
+  const year = req.params.year * 1;
 
-exports.getMovieStats = async (req, res) => {
-  try {
-    const stats = await Movie.aggregate([
-      {
-        $match: { budget: { $gte: 0 } },
-      },
-      {
-        $group: {
-          _id: { $toUpper: '$funny' },
-          numMovies: { $sum: 1 },
-          avgRating: { $avg: '$popularity' },
-          avgRuntime: { $avg: '$runtime' },
-          minRuntime: { $min: '$runtime' },
-          maxRuntime: { $max: '$runtime' },
-          sumRuntime: { $sum: '$runtime' },
+  const plan = await Movie.aggregate([
+    {
+      $unwind: '$genres',
+    },
+    {
+      $match: {
+        release_date: {
+          $gte: new Date(`${year}-01-01`),
+          $lte: new Date(`${year}-12-31`),
         },
       },
-      {
-        $sort: { avgRuntime: 1 },
+    },
+    {
+      $group: {
+        // _id: { $month: '$release_date' },
+        _id: '$genres',
+        numMovies: { $sum: 1 },
+        movies: { $push: '$original_title' },
       },
-      // {
-      //   $match: { _id: { $ne: 'NOT-FUN' } },
-      // },
-    ]);
+    },
+    {
+      $addFields: { genre: '$_id.name' },
+    },
+    {
+      $project: {
+        _id: 0,
+      },
+    },
+    {
+      $sort: { numMovies: -1 },
+    },
+    {
+      $limit: 100,
+    },
+  ]);
 
-    res.status(200).json({
-      status: 'success',
-      data: {
-        stats,
-      },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
-  }
-};
-
-exports.getMonthlyPlan = async (req, res) => {
-  try {
-    const year = req.params.year * 1;
-
-    const plan = await Movie.aggregate([
-      {
-        $unwind: '$genres',
-      },
-      {
-        $match: {
-          release_date: {
-            $gte: new Date(`${year}-01-01`),
-            $lte: new Date(`${year}-12-31`),
-          },
-        },
-      },
-      {
-        $group: {
-          // _id: { $month: '$release_date' },
-          _id: '$genres',
-          numMovies: { $sum: 1 },
-          movies: { $push: '$original_title' },
-        },
-      },
-      {
-        $addFields: { genre: '$_id.name' },
-      },
-      {
-        $project: {
-          _id: 0,
-        },
-      },
-      {
-        $sort: { numMovies: -1 },
-      },
-      {
-        $limit: 100,
-      },
-    ]);
-
-    res.status(200).json({
-      status: 'success',
-      data: {
-        plan,
-      },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: err,
-    });
-  }
-};
+  res.status(200).json({
+    status: 'success',
+    data: {
+      plan,
+    },
+  });
+});
