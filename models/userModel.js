@@ -1,8 +1,9 @@
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
-const userShcema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -16,10 +17,16 @@ const userShcema = new mongoose.Schema(
       validate: [validator.isEmail, 'Vänligen ange en giltig mailadress!'],
     },
     photot: String,
+    role: {
+      type: String,
+      enum: ['user', 'member', 'admin'],
+      default: 'user',
+    },
     password: {
       type: String,
       required: [true, 'Du måste ange lösenord!'],
       minLength: [8, 'Lösenordet måste innehålla minst 8 karaktärer!'],
+      select: false,
     },
     passwordConfirm: {
       type: String,
@@ -32,6 +39,9 @@ const userShcema = new mongoose.Schema(
         message: 'Lösenorden matchar inte',
       },
     },
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   {
     toJSON: { virtuals: true },
@@ -39,7 +49,7 @@ const userShcema = new mongoose.Schema(
   }
 );
 
-userShcema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
   // Only run this function if password was actually modified
   if (!this.isModified('password')) return next();
 
@@ -51,6 +61,46 @@ userShcema.pre('save', async function (next) {
   next();
 });
 
-const User = mongoose.model('User', userShcema);
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now() - 1000;
+  next();
+});
+
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+
+    return JWTTimestamp < changedTimestamp;
+  }
+
+  // False means NOT changed
+  return false;
+};
+
+userSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
+};
+
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

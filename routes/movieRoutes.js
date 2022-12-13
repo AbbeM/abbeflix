@@ -1,4 +1,5 @@
 const express = require('express');
+const { protect, restrictTo } = require('../controllers/authController');
 const {
   getAllMovies,
   createMovie,
@@ -17,7 +18,11 @@ const router = express.Router();
 router.route('/movie-stats').get(getMovieStats);
 router.route('/monthly-plan/:year').get(getMonthlyPlan);
 router.route('/top-10').get(aliasTopMovies, getAllMovies);
-router.route('/').get(getAllMovies).post(createMovie);
-router.route('/:id').get(getMovie).patch(updateMovie).delete(deleteMovie);
+router.route('/').get(protect, getAllMovies).post(createMovie);
+router
+  .route('/:id')
+  .get(getMovie)
+  .patch(updateMovie)
+  .delete(protect, restrictTo('admin', 'member'), deleteMovie);
 
 module.exports = router;
