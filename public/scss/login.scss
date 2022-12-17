@@ -1,0 +1,111 @@
+@import url('../assets/font/stylesheet.css');
+
+*{
+  color: #fff;
+  font-family: 'Poppins';
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #212121;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 3rem;
+}
+
+#login-form {
+  margin: 2rem 3rem;
+  display: flex;
+  gap: 7rem;
+  padding-left: 4rem;
+
+
+  form {
+    min-width: 22rem;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 0rem;
+      margin: auto;
+      margin-top: 0
+    }
+
+    p {
+      color: #B4B4B4;
+      margin: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      margin-top: 1.5rem;
+    }
+
+    input {
+      margin-top: 0.5rem;
+      background: none;
+      border: 2px solid #474747;
+      border-radius: 5px;
+      padding: 0.7rem 1rem;
+    }
+
+    input.valid{
+      border-color: #0D63A5 !important;
+    }
+
+    input.invalid{
+      border-color: #FFD717;
+    }
+
+    .err {
+      color: #B4B4B4;
+      font-size: 0.75rem;
+      margin-top: 0.4rem;
+      display: none;
+
+      .active {
+        display: block;
+      }
+    }
+
+    .under-input {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    input[type="submit"] {
+      margin-top: 1.5rem;
+      background: #083358;
+      border: none;
+      border-radius: 5px;
+      padding: 0.7rem 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #register {
+      color: #B4B4B4;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin: auto;
+      margin-top: 3rem;
+      margin-bottom: 0;
+    }
+  }
+
+  .fom-right {
+    background: #474747;
+    width: 100%;
+    
+  }
+}

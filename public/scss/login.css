@@ -1,1 +1,95 @@
-/*# sourceMappingURL=login.css.map */
+@import url("../assets/font/stylesheet.css");
+* {
+  color: #fff;
+  font-family: "Poppins";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #212121;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 3rem;
+}
+
+#login-form {
+  margin: 2rem 3rem;
+  display: flex;
+  gap: 7rem;
+  padding-left: 4rem;
+}
+#login-form form {
+  min-width: 22rem;
+  display: flex;
+  flex-direction: column;
+}
+#login-form form h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0rem;
+  margin: auto;
+  margin-top: 0;
+}
+#login-form form p {
+  color: #B4B4B4;
+  margin: auto;
+  margin-bottom: 1.5rem;
+}
+#login-form form label {
+  margin-top: 1.5rem;
+}
+#login-form form input {
+  margin-top: 0.5rem;
+  background: none;
+  border: 2px solid #474747;
+  border-radius: 5px;
+  padding: 0.7rem 1rem;
+}
+#login-form form input.valid {
+  border-color: #0D63A5 !important;
+}
+#login-form form input.invalid {
+  border-color: #FFD717;
+}
+#login-form form .err {
+  color: #B4B4B4;
+  font-size: 0.75rem;
+  margin-top: 0.4rem;
+  display: none;
+}
+#login-form form .err .active {
+  display: block;
+}
+#login-form form .under-input {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+#login-form form input[type=submit] {
+  margin-top: 1.5rem;
+  background: #083358;
+  border: none;
+  border-radius: 5px;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+#login-form form #register {
+  color: #B4B4B4;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin: auto;
+  margin-top: 3rem;
+  margin-bottom: 0;
+}
+#login-form .fom-right {
+  background: #474747;
+  width: 100%;
+}/*# sourceMappingURL=login.css.map */

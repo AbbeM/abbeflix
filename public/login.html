@@ -4,9 +4,41 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="scss/login.css">
   <title>Document</title>
 </head>
 <body>
-  
+  <header>
+    <div id="logo">Abbeflix</div>
+    <div class="back-btn">-></div>
+  </header>
+
+  <section id="login-form">
+    <form action="GET" id="login">
+      <h1>Välkommen!</h1>
+      <p>Lorem Ipsum is simply dummy text of the</p>
+
+      <label for="email">E-post</label>
+      <input type="text" name="email" id="email">
+      <div class="err" id="email-err">Email must be a valid address, e.g. me@mydomain.com</div>
+    
+      <label for="pass">Lösenord</label>
+      <input type="text" name="pass" id="pass">
+      <div class="err" id="pass-err">Password must alphanumeric (@, _ and - are also allowed) and be 8 - 20 characters</div>
+
+      <div class="under-input">
+        <div id="remember">Kom ihåg mig!</div>
+        <a href="http://">Glömde Lösenord</a>
+      </div>
+    
+      <input type="submit" value="Logga In">
+
+      <div id="register">Inget konto? <a href="http://">Skapa en</a></div>
+    </form>
+
+    <div class="fom-right"></div>
+  </section>
+
+  <script src="js/regex.js"></script>
 </body>
 </html>
