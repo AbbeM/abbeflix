@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-const validator = require('validator');
+// const User = require('./userModel');
 
 const movieSchema = new mongoose.Schema(
   {
@@ -120,6 +120,36 @@ const movieSchema = new mongoose.Schema(
       default: 0,
     },
     slug: String,
+    location: {
+      // GeoJSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point'],
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
+    testUsers: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
@@ -131,6 +161,13 @@ movieSchema.virtual('runtime-h').get(function () {
   return `${Math.floor(this.runtime / 60)}h ${this.runtime % 60}min`;
 });
 
+// Virtual populate
+movieSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'movie',
+  localField: '_id',
+});
+
 // DOCUMENT MEDELWARE: Runs before .save() and .create()
 movieSchema.pre('save', function (next) {
   this.slug = slugify(this.original_title, { lower: true });
@@ -138,10 +175,29 @@ movieSchema.pre('save', function (next) {
   next();
 });
 
+// EMBEDDING USERS IN MOVIES
+// movieSchema.pre('save', async function (next) {
+//   const usersPromises = this.testUsers.map(
+//     async (id) => await User.findById(id)
+//   );
+//   this.testUsers = await Promise.all(usersPromises);
+
+//   next();
+// });
+
 // QUERY MEDELWARE: Runs before .find()
 movieSchema.pre(/^find/, function (next) {
   this.find({ secret: { $ne: true } });
   this.start = Date.now();
+
+  next();
+});
+
+movieSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'testUsers',
+    select: '-__v -passwordChangedAt',
+  });
 
   next();
 });

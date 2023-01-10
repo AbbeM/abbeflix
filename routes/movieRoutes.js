@@ -1,5 +1,6 @@
 const express = require('express');
 const { protect, restrictTo } = require('../controllers/authController');
+const reviewRouter = require('./reviewRoutes');
 const {
   getAllMovies,
   createMovie,
@@ -15,10 +16,15 @@ const router = express.Router();
 
 // router.param('id', checkID);
 
+router.use('/:movieId/reviews', reviewRouter);
+
 router.route('/movie-stats').get(getMovieStats);
 router.route('/monthly-plan/:year').get(getMonthlyPlan);
 router.route('/top-10').get(aliasTopMovies, getAllMovies);
-router.route('/').get(protect, getAllMovies).post(createMovie);
+router
+  .route('/')
+  .get(protect, getAllMovies)
+  .post(protect, restrictTo('admin', 'member'), createMovie);
 router
   .route('/:id')
   .get(getMovie)

@@ -6,11 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="scss/login.css">
   <title>Document</title>
+  <script src="https://unpkg.com/eva-icons"></script>
 </head>
 <body>
   <header>
     <div id="logo">Abbeflix</div>
-    <div class="back-btn">-></div>
+    <i data-eva="arrow-forward-outline" data-eva-fill="#fff" data-eva-height="28" data-eva-width="28"></i>
   </header>
 
   <section id="login-form">
@@ -23,7 +24,7 @@
       <div class="err" id="email-err">Email must be a valid address, e.g. me@mydomain.com</div>
     
       <label for="pass">Lösenord</label>
-      <input type="text" name="pass" id="pass">
+      <input type="password" name="pass" id="pass">
       <div class="err" id="pass-err">Password must alphanumeric (@, _ and - are also allowed) and be 8 - 20 characters</div>
 
       <div class="under-input">
@@ -33,12 +34,15 @@
     
       <input type="submit" value="Logga In">
 
-      <div id="register">Inget konto? <a href="http://">Skapa en</a></div>
+      <div id="register">Inget konto? <a href="http://">Skapa ett</a></div>
     </form>
 
     <div class="fom-right"></div>
   </section>
 
   <script src="js/regex.js"></script>
+  <script>
+    eva.replace()
+  </script>
 </body>
 </html>

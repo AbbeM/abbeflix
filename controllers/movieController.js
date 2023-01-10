@@ -2,6 +2,7 @@ const Movie = require('../models/movieModel');
 const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
+const { deleteOne, updateOne, createOne } = require('./handlerFactory');
 
 exports.aliasTopMovies = (req, res, next) => {
   req.query.limit = '10';
@@ -31,7 +32,7 @@ exports.getAllMovies = catchAsync(async (req, res, next) => {
 });
 
 exports.getMovie = catchAsync(async (req, res, next) => {
-  const movie = await Movie.findById(req.params.id);
+  const movie = await Movie.findById(req.params.id).populate('reviews');
 
   if (!movie) {
     return next(new AppError('No movie found with that id', 404));
@@ -45,47 +46,9 @@ exports.getMovie = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createMovie = catchAsync(async (req, res, next) => {
-  const newMovie = await Movie.create(req.body);
-
-  res.status(201).json({
-    status: 'success',
-    data: {
-      movie: newMovie,
-    },
-  });
-});
-
-exports.updateMovie = catchAsync(async (req, res, next) => {
-  const movie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
-  if (!movie) {
-    return next(new AppError('No movie found with that id', 404));
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      movie,
-    },
-  });
-});
-
-exports.deleteMovie = catchAsync(async (req, res, next) => {
-  const movie = await Movie.findByIdAndDelete(req.params.id);
-
-  if (!movie) {
-    return next(new AppError('Kunde inte hitta film med angiven id!', 404));
-  }
-
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
-});
+exports.createMovie = createOne(Movie);
+exports.updateMovie = updateOne(Movie);
+exports.deleteMovie = deleteOne(Movie);
 
 exports.getMovieStats = catchAsync(async (req, res, next) => {
   const stats = await Movie.aggregate([
