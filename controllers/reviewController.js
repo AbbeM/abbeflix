@@ -1,23 +1,11 @@
 const Review = require('../models/reviewModel');
-const catchAsync = require('../utils/catchAsync');
-const { deleteOne, updateOne, createOne } = require('./handlerFactory');
-
-exports.getAllReviews = catchAsync(async (req, res) => {
-  let filter = {};
-
-  if (req.params.movieId) filter = { movie: req.params.movieId };
-
-  const reviews = await Review.find(filter);
-
-  // SEND RESPONSE
-  res.status(200).json({
-    status: 'success',
-    results: reviews.length,
-    data: {
-      reviews,
-    },
-  });
-});
+const {
+  deleteOne,
+  updateOne,
+  createOne,
+  getOne,
+  getAll,
+} = require('./handlerFactory');
 
 exports.setMovieUserIds = (req, res, next) => {
   // Allow nested routes
@@ -27,6 +15,8 @@ exports.setMovieUserIds = (req, res, next) => {
   next();
 };
 
+exports.getAllReviews = getAll(Review);
+exports.getReview = getOne(Review);
 exports.createReview = createOne(Review);
 exports.updateReview = updateOne(Review);
 exports.deleteReview = deleteOne(Review);

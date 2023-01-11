@@ -1,8 +1,12 @@
 const Movie = require('../models/movieModel');
-const APIFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/AppError');
-const { deleteOne, updateOne, createOne } = require('./handlerFactory');
+const {
+  deleteOne,
+  updateOne,
+  createOne,
+  getOne,
+  getAll,
+} = require('./handlerFactory');
 
 exports.aliasTopMovies = (req, res, next) => {
   req.query.limit = '10';
@@ -12,40 +16,8 @@ exports.aliasTopMovies = (req, res, next) => {
   next();
 };
 
-exports.getAllMovies = catchAsync(async (req, res, next) => {
-  // EXECUTE QUERY
-  const features = new APIFeatures(Movie.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-  const movies = await features.query;
-
-  // SEND RESPONSE
-  res.status(200).json({
-    status: 'success',
-    results: movies.length,
-    data: {
-      movies,
-    },
-  });
-});
-
-exports.getMovie = catchAsync(async (req, res, next) => {
-  const movie = await Movie.findById(req.params.id).populate('reviews');
-
-  if (!movie) {
-    return next(new AppError('No movie found with that id', 404));
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      movie,
-    },
-  });
-});
-
+exports.getAllMovies = getAll(Movie);
+exports.getMovie = getOne(Movie, { path: 'reviews' });
 exports.createMovie = createOne(Movie);
 exports.updateMovie = updateOne(Movie);
 exports.deleteMovie = deleteOne(Movie);

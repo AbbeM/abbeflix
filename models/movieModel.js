@@ -150,12 +150,23 @@ const movieSchema = new mongoose.Schema(
         ref: 'User',
       },
     ],
+    ratingsQuantity: {
+      type: Number,
+      default: 0,
+    },
+    ratingsAverage: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
 );
+
+movieSchema.index({ genres: 1, ratin: -1 });
+movieSchema.index({ slug: 1 });
 
 movieSchema.virtual('runtime-h').get(function () {
   return `${Math.floor(this.runtime / 60)}h ${this.runtime % 60}min`;

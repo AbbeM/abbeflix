@@ -17,6 +17,7 @@ const {
   deleteUser,
   updaterMe,
   deleteMe,
+  getMe,
 } = require('../controllers/userController');
 
 const router = express.Router();
@@ -26,14 +27,18 @@ router.post('/login', login);
 
 router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:token', resetPassword);
-router.patch('/updatePassword', protect, updatePassword);
-router.patch('/updateMe', protect, updaterMe);
-router.delete('/deleteMe', protect, deleteMe);
 
-router
-  .route('/')
-  .get(protect, restrictTo('admin'), getAllUsers)
-  .post(crateUser);
+// Protect all those routes after this medelware
+router.use(protect);
+router.patch('/updatePassword', updatePassword);
+
+router.get('/me', getMe, getUser);
+router.patch('/updateMe', updaterMe);
+router.delete('/deleteMe', deleteMe);
+
+router.use(restrictTo('admin'));
+
+router.route('/').get(getAllUsers).post(crateUser);
 router.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
 
 module.exports = router;

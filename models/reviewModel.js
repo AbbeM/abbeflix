@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Movie = require('./movieModel');
 
 const reviewSchema = new mongoose.Schema(
   {
@@ -28,6 +29,31 @@ const reviewSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+reviewSchema.statics.calcAvrageRatings = async function (movieId) {
+  const stats = await this.aggregate([
+    {
+      $match: { movie: movieId },
+    },
+    {
+      $group: {
+        _id: '$movie',
+        nRating: { $sum: 1 },
+        avgRating: { $avg: '$rating' },
+      },
+    },
+  ]);
+
+  await Movie.findByIdAndUpdate(movieId, {
+    ratingsQuantity: stats[0].nRating,
+    ratingsAverage: stats[0].avgRating,
+  });
+};
+
+reviewSchema.post('save', function () {
+  // this points to current review
+  this.constructor.calcAvrageRatings(this.movie);
+});
 
 const Review = mongoose.model('Review', reviewSchema);
 

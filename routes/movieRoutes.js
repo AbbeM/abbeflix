@@ -19,16 +19,20 @@ const router = express.Router();
 router.use('/:movieId/reviews', reviewRouter);
 
 router.route('/movie-stats').get(getMovieStats);
-router.route('/monthly-plan/:year').get(getMonthlyPlan);
+router
+  .route('/monthly-plan/:year')
+  .get(protect, restrictTo('admin', 'member'), getMonthlyPlan);
+
 router.route('/top-10').get(aliasTopMovies, getAllMovies);
+
 router
   .route('/')
-  .get(protect, getAllMovies)
+  .get(getAllMovies)
   .post(protect, restrictTo('admin', 'member'), createMovie);
 router
   .route('/:id')
   .get(getMovie)
-  .patch(updateMovie)
+  .patch(protect, restrictTo('admin', 'member'), updateMovie)
   .delete(protect, restrictTo('admin', 'member'), deleteMovie);
 
 module.exports = router;
