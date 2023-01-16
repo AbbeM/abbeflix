@@ -1,18 +1,10 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-// const User = require('./userModel');
+const Actor = require('./actorModel');
 
 const movieSchema = new mongoose.Schema(
   {
-    adult: {
-      type: Boolean,
-      default: false,
-    },
-    backdrop_path: {
-      type: String,
-      default: null,
-    },
-    belongs_to_collection: {
+    belongsToCollection: {
       type: Object,
       default: null,
     },
@@ -20,29 +12,14 @@ const movieSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'Du måste ange budget!'],
     },
-    genres: {
-      type: Array,
-      required: [true, 'Du måste ange genre!'],
-    },
-    homepage: {
-      type: String,
-      default: null,
-    },
-    imdb_id: {
-      type: String,
-      default: null,
-      unique: [true, 'Filmen måste vara unik!'],
-      minLength: [9, 'Ange rätt id! Iden måste innehålla 9 karaktärer!'],
-      maxLength: [9, 'Ange rätt id! Iden måste innehålla 9 karaktärer!'],
-      validate: {
-        validator: function (val) {
-          return /^tt[0-9]{7}/.test(val);
-        },
-        message: 'Ange rätt id!',
+    genres: [
+      {
+        type: String,
+        required: [true, 'Du måste ange genre!'],
       },
-    },
-    original_language: String,
-    original_title: {
+    ],
+    originalLanguage: String,
+    originalTitle: {
       type: String,
       required: [true, 'Du måste ange rubriken!'],
       unique: [true, 'Filmen måste vara unik!'],
@@ -51,15 +28,11 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Du måste ange sammanfattning!'],
     },
-    popularity: {
-      type: Number,
-      default: 0,
-    },
-    poster_path: {
+    posterPath: {
       type: String,
       default: null,
     },
-    production_companies: [
+    productionCompanies: [
       {
         name: String,
         id: Number,
@@ -70,13 +43,7 @@ const movieSchema = new mongoose.Schema(
         origin_country: String,
       },
     ],
-    production_countries: [
-      {
-        iso_3166_1: String,
-        name: String,
-      },
-    ],
-    release_date: {
+    releaseDate: {
       type: Date,
       required: [true, 'Du måste ange utgivningsdatum!'],
     },
@@ -85,7 +52,7 @@ const movieSchema = new mongoose.Schema(
       type: Number,
       default: null,
     },
-    spoken_languages: [
+    spokenLanguages: [
       {
         iso_639_1: String,
         name: String,
@@ -105,51 +72,7 @@ const movieSchema = new mongoose.Schema(
         message: 'Ange rätt läge!',
       },
     },
-    tagline: {
-      type: String,
-      default: null,
-    },
-    title: String,
-    video: Boolean,
-    vote_average: {
-      type: Number,
-      default: 0,
-    },
-    vote_count: {
-      type: Number,
-      default: 0,
-    },
     slug: String,
-    location: {
-      // GeoJSON
-      type: {
-        type: String,
-        default: 'Point',
-        enum: ['Point'],
-      },
-      coordinates: [Number],
-      address: String,
-      description: String,
-    },
-    locations: [
-      {
-        type: {
-          type: String,
-          default: 'Point',
-          enum: ['Point'],
-        },
-        coordinates: [Number],
-        address: String,
-        description: String,
-        day: Number,
-      },
-    ],
-    testUsers: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User',
-      },
-    ],
     ratingsQuantity: {
       type: Number,
       default: 0,
@@ -157,7 +80,16 @@ const movieSchema = new mongoose.Schema(
     ratingsAverage: {
       type: Number,
       default: 0,
+      set: (val) => Math.round(val * 10) / 10,
     },
+    age: Number,
+    quality: String,
+    actors: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Actor',
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
@@ -179,36 +111,39 @@ movieSchema.virtual('reviews', {
   localField: '_id',
 });
 
-// DOCUMENT MEDELWARE: Runs before .save() and .create()
-movieSchema.pre('save', function (next) {
-  this.slug = slugify(this.original_title, { lower: true });
+movieSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'actors',
+    select: '-__v',
+  });
 
   next();
 });
 
-// EMBEDDING USERS IN MOVIES
-// movieSchema.pre('save', async function (next) {
-//   const usersPromises = this.testUsers.map(
-//     async (id) => await User.findById(id)
-//   );
-//   this.testUsers = await Promise.all(usersPromises);
+// DOCUMENT MEDELWARE: Runs before .save() and .create()
+movieSchema.pre('save', function (next) {
+  this.slug = slugify(this.originalTitle, { lower: true });
 
-//   next();
-// });
+  next();
+});
+
+// Embedding actors in movies
+movieSchema.pre('save', async function (next) {
+  await this.actors.map(async (id) => {
+    const actor = await Actor.findById(id);
+    const actorMovies = [...actor.movies];
+    actorMovies.push(this.id);
+
+    await Actor.findByIdAndUpdate(id, { movies: actorMovies });
+  });
+
+  next();
+});
 
 // QUERY MEDELWARE: Runs before .find()
 movieSchema.pre(/^find/, function (next) {
   this.find({ secret: { $ne: true } });
   this.start = Date.now();
-
-  next();
-});
-
-movieSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'testUsers',
-    select: '-__v -passwordChangedAt',
-  });
 
   next();
 });
@@ -227,15 +162,3 @@ movieSchema.pre('aggregate', function (next) {
 const Movie = mongoose.model('Movie', movieSchema);
 
 module.exports = Movie;
-
-// movieSchema.pre('save', function (next) {
-//   console.log('Sparar filmen...');
-
-//   next();
-// });
-
-// movieSchema.post('save', function (doc, next) {
-//   console.log(doc);
-
-//   next();
-// });

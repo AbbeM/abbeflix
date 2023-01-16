@@ -30,6 +30,8 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 reviewSchema.statics.calcAvrageRatings = async function (movieId) {
   const stats = await this.aggregate([
     {
@@ -44,15 +46,32 @@ reviewSchema.statics.calcAvrageRatings = async function (movieId) {
     },
   ]);
 
-  await Movie.findByIdAndUpdate(movieId, {
-    ratingsQuantity: stats[0].nRating,
-    ratingsAverage: stats[0].avgRating,
-  });
+  if (stats.length > 0) {
+    await Movie.findByIdAndUpdate(movieId, {
+      ratingsQuantity: stats[0].nRating,
+      ratingsAverage: stats[0].avgRating,
+    });
+  } else {
+    await Movie.findByIdAndUpdate(movieId, {
+      ratingsQuantity: 0,
+      ratingsAverage: 0,
+    });
+  }
 };
 
 reviewSchema.post('save', function () {
   // this points to current review
   this.constructor.calcAvrageRatings(this.movie);
+});
+
+reviewSchema.pre(/^findOneAnd/, async function (next) {
+  this.r = await this.findOne();
+  next();
+});
+
+reviewSchema.post(/^findOneAnd/, async function () {
+  // await this.findOne(); does NOT work here, query has alredy executed
+  await this.r.constructor.calcAvrageRatings(this.r.movie);
 });
 
 const Review = mongoose.model('Review', reviewSchema);

@@ -1,6 +1,7 @@
 const express = require('express');
 const { protect, restrictTo } = require('../controllers/authController');
 const reviewRouter = require('./reviewRoutes');
+const favoritRouter = require('./favoritRoutes');
 const {
   getAllMovies,
   createMovie,
@@ -14,9 +15,8 @@ const {
 
 const router = express.Router();
 
-// router.param('id', checkID);
-
 router.use('/:movieId/reviews', reviewRouter);
+router.use('/:movieId/favorits', favoritRouter);
 
 router.route('/movie-stats').get(getMovieStats);
 router
