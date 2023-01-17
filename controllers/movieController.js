@@ -1,3 +1,4 @@
+const Favorit = require('../models/favoritModel');
 const Movie = require('../models/movieModel');
 const catchAsync = require('../utils/catchAsync');
 const {
@@ -17,7 +18,7 @@ exports.aliasTopMovies = (req, res, next) => {
 };
 
 exports.getAllMovies = getAll(Movie);
-exports.getMovie = getOne(Movie, { path: 'reviews' });
+exports.getMovie = getOne(Movie, { path: 'reviews' }, { add: true });
 exports.createMovie = createOne(Movie);
 exports.updateMovie = updateOne(Movie);
 exports.deleteMovie = deleteOne(Movie);

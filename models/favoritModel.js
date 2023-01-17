@@ -23,10 +23,7 @@ const favoritSchema = mongoose.Schema(
   }
 );
 
-// favoritSchema.pre(/^find/, async function (next) {
-//   this.find({ user: '63c25c1b3d25226204dbf41a' });
-//   next();
-// });
+favoritSchema.index({ movie: 1, user: -1 });
 
 const Favorit = mongoose.model('Favorit', favoritSchema);
 

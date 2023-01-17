@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 const Actor = require('./actorModel');
+const Favorit = require('./favoritModel');
 
 const movieSchema = new mongoose.Schema(
   {
@@ -100,10 +101,6 @@ const movieSchema = new mongoose.Schema(
 movieSchema.index({ genres: 1, ratin: -1 });
 movieSchema.index({ slug: 1 });
 
-movieSchema.virtual('runtime-h').get(function () {
-  return `${Math.floor(this.runtime / 60)}h ${this.runtime % 60}min`;
-});
-
 // Virtual populate
 movieSchema.virtual('reviews', {
   ref: 'Review',
@@ -143,14 +140,16 @@ movieSchema.pre('save', async function (next) {
 // QUERY MEDELWARE: Runs before .find()
 movieSchema.pre(/^find/, function (next) {
   this.find({ secret: { $ne: true } });
-  this.start = Date.now();
 
   next();
 });
 
-movieSchema.post(/^find/, function (docs, next) {
-  console.log(`Query took ${Date.now() - this.start} milliseconds!`);
-  next();
+movieSchema.pre(/^find/, async function () {
+  const id = this._conditions._id;
+
+  const added = await Favorit.find({ movie: id });
+
+  movieSchema.virtual('addedToList').get(() => added.length > 0);
 });
 
 // AGGREGATION MEDELWARE
