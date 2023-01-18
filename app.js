@@ -12,6 +12,8 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const actorRouter = require('./routes/actorRoutes');
 const favoritRouter = require('./routes/favoritRoutes');
+const genreRouter = require('./routes/genreRoutes');
+const movieSeriesRouter = require('./routes/movieSeriesRoutes');
 
 const app = express();
 
@@ -61,6 +63,8 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/actors', actorRouter);
 app.use('/api/v1/favorites', favoritRouter);
+app.use('/api/v1/genres', genreRouter);
+app.use('/api/v1/movieSeries', movieSeriesRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

@@ -1,23 +1,15 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 const Actor = require('./actorModel');
+const Genre = require('./genreModel');
+const MovieSeries = require('./movieSeriesModel');
 
 const movieSchema = new mongoose.Schema(
   {
-    belongsToCollection: {
-      type: Object,
-      default: null,
-    },
     budget: {
       type: Number,
       required: [true, 'Du måste ange budget!'],
     },
-    genres: [
-      {
-        type: String,
-        required: [true, 'Du måste ange genre!'],
-      },
-    ],
     originalLanguage: String,
     originalTitle: {
       type: String,
@@ -32,17 +24,6 @@ const movieSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
-    productionCompanies: [
-      {
-        name: String,
-        id: Number,
-        logo_path: {
-          type: String,
-          default: null,
-        },
-        origin_country: String,
-      },
-    ],
     releaseDate: {
       type: Date,
       required: [true, 'Du måste ange utgivningsdatum!'],
@@ -51,26 +32,6 @@ const movieSchema = new mongoose.Schema(
     runtime: {
       type: Number,
       default: null,
-    },
-    spokenLanguages: [
-      {
-        iso_639_1: String,
-        name: String,
-      },
-    ],
-    status: {
-      type: String,
-      enum: {
-        values: [
-          'Rumored',
-          'Planned',
-          'In Production',
-          'Post Production',
-          'Released',
-          'Canceled',
-        ],
-        message: 'Ange rätt läge!',
-      },
     },
     slug: String,
     ratingsQuantity: {
@@ -90,6 +51,44 @@ const movieSchema = new mongoose.Schema(
         ref: 'Actor',
       },
     ],
+    genres: [
+      {
+        type: String,
+        required: [true, 'Du måste ange genre.'],
+        enum: {
+          values: [
+            'Action',
+            'Anime',
+            'Barn och familj',
+            'Dokumentärer',
+            'Draman',
+            'Europeiskt',
+            'Fantasy',
+            'Fredagsmys',
+            'Indie',
+            'Internationellt',
+            'Internationellt',
+            'Komedier',
+            'Kortfilmer',
+            'Kriminalare',
+            'Kritikernas favoriter',
+            'Musik och musikaler',
+            'Nordiskt',
+            'Romantik',
+            'Sci-fi',
+            'Skräck',
+            'Ståuppkomik',
+            'Svenskt',
+            'Thriller',
+          ],
+          message: 'Ange rätt gener!',
+        },
+      },
+    ],
+    movieSeries: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'MovieSeries',
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -110,8 +109,20 @@ movieSchema.virtual('reviews', {
 // DOCUMENT MEDELWARE: Runs before .save() and .create()
 movieSchema.pre('save', async function (next) {
   this.slug = slugify(this.originalTitle, { lower: true });
+
   await this.actors.map(async (actor) => {
     await Actor.findByIdAndUpdate(actor, { $push: { movies: this._id } });
+  });
+
+  await this.genres.map(async (genre) => {
+    await Genre.findOneAndUpdate(
+      { name: genre },
+      { $push: { movies: this._id } }
+    );
+  });
+
+  await MovieSeries.findByIdAndUpdate(this.movieSeries, {
+    $push: { movies: this._id },
   });
 
   next();
@@ -120,8 +131,14 @@ movieSchema.pre('save', async function (next) {
 // QUERY MEDELWARE: Runs before .find()
 movieSchema.pre(/^find/, function (next) {
   this.find({ secret: { $ne: true } });
+
   this.populate({
     path: 'actors',
+    select: '-__v',
+  });
+
+  this.populate({
+    path: 'movieSeries',
     select: '-__v',
   });
 
