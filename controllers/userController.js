@@ -62,7 +62,7 @@ exports.crateUser = (req, res) => {
   });
 };
 
-exports.getAllUsers = getAll(User);
+exports.getAllUsers = getAll(User, { user: false });
 exports.getUser = getOne(User);
 exports.updateUser = updateOne(User);
 exports.deleteUser = deleteOne(User);

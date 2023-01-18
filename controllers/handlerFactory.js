@@ -1,4 +1,3 @@
-const Favorit = require('../models/favoritModel');
 const APIFeatures = require('../utils/apiFeatures');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
@@ -8,7 +7,7 @@ exports.getAll = (Model, options) =>
     // To allow for nested GET reviews on movie (hack)
     let filter = {};
     if (req.params.movieId) filter = { movie: req.params.movieId };
-    if (options) filter = { user: req.user.id };
+    if (options.user) filter.user = req.user.id;
 
     // EXECUTE QUERY
     const features = new APIFeatures(Model.find(filter), req.query)
@@ -31,6 +30,7 @@ exports.getAll = (Model, options) =>
 exports.getOne = (Model, popOptions) =>
   catchAsync(async (req, res, next) => {
     let query = Model.findById(req.params.id);
+    query.request = req;
     if (popOptions) query = query.populate(popOptions);
     const doc = await query;
 

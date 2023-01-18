@@ -1,23 +1,20 @@
 const express = require('express');
-const { protect, restrictTo } = require('../controllers/authController');
+const { protect } = require('../controllers/authController');
 const {
   getAllFavorites,
   createFavorit,
   setMovieUserIds,
-  getFavorit,
-  updateFavorit,
   deleteFavorit,
 } = require('../controllers/favoritController');
 
 const router = express.Router({ mergeParams: true });
 
-router.use(protect);
+router.use(protect, setMovieUserIds);
 
 router
   .route('/')
   .get(getAllFavorites)
-  .post(restrictTo('user'), setMovieUserIds, createFavorit);
-
-router.route('/:id').get(getFavorit).patch(updateFavorit).delete(deleteFavorit);
+  .post(createFavorit)
+  .delete(deleteFavorit);
 
 module.exports = router;

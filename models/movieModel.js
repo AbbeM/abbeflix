@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 const Actor = require('./actorModel');
-const Favorit = require('./favoritModel');
 
 const movieSchema = new mongoose.Schema(
   {
@@ -108,30 +107,11 @@ movieSchema.virtual('reviews', {
   localField: '_id',
 });
 
-movieSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'actors',
-    select: '-__v',
-  });
-
-  next();
-});
-
 // DOCUMENT MEDELWARE: Runs before .save() and .create()
-movieSchema.pre('save', function (next) {
-  this.slug = slugify(this.originalTitle, { lower: true });
-
-  next();
-});
-
-// Embedding actors in movies
 movieSchema.pre('save', async function (next) {
-  await this.actors.map(async (id) => {
-    const actor = await Actor.findById(id);
-    const actorMovies = [...actor.movies];
-    actorMovies.push(this.id);
-
-    await Actor.findByIdAndUpdate(id, { movies: actorMovies });
+  this.slug = slugify(this.originalTitle, { lower: true });
+  await this.actors.map(async (actor) => {
+    await Actor.findByIdAndUpdate(actor, { $push: { movies: this._id } });
   });
 
   next();
@@ -140,16 +120,12 @@ movieSchema.pre('save', async function (next) {
 // QUERY MEDELWARE: Runs before .find()
 movieSchema.pre(/^find/, function (next) {
   this.find({ secret: { $ne: true } });
+  this.populate({
+    path: 'actors',
+    select: '-__v',
+  });
 
   next();
-});
-
-movieSchema.pre(/^find/, async function () {
-  const id = this._conditions._id;
-
-  const added = await Favorit.find({ movie: id });
-
-  movieSchema.virtual('addedToList').get(() => added.length > 0);
 });
 
 // AGGREGATION MEDELWARE

@@ -1,13 +1,8 @@
 const Favorit = require('../models/favoritModel');
 const Movie = require('../models/movieModel');
+const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
-const {
-  deleteOne,
-  updateOne,
-  createOne,
-  getOne,
-  getAll,
-} = require('./handlerFactory');
+const { deleteOne, updateOne, createOne, getAll } = require('./handlerFactory');
 
 exports.aliasTopMovies = (req, res, next) => {
   req.query.limit = '10';
@@ -17,8 +12,38 @@ exports.aliasTopMovies = (req, res, next) => {
   next();
 };
 
-exports.getAllMovies = getAll(Movie);
-exports.getMovie = getOne(Movie, { path: 'reviews' }, { add: true });
+exports.setMovieUserIds = (req, res, next) => {
+  // Allow nested routes
+  if (!req.body.movie) req.body.movie = req.params.movieId;
+  if (!req.body.user) req.body.user = req.user.id;
+
+  next();
+};
+
+exports.getAllMovies = getAll(Movie, { user: false });
+
+exports.getMovie = catchAsync(async (req, res, next) => {
+  const movie = await Movie.findById(req.params.id).populate('reviews');
+  const favorit = await Favorit.find({
+    user: req.user.id,
+    movie: req.params.id,
+  });
+
+  const isFavorite = favorit.length > 0;
+
+  if (!movie) {
+    return next(new AppError('No document found with that id', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      movie,
+      isFavorite,
+    },
+  });
+});
+
 exports.createMovie = createOne(Movie);
 exports.updateMovie = updateOne(Movie);
 exports.deleteMovie = deleteOne(Movie);

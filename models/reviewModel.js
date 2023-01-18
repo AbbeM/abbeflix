@@ -30,7 +30,7 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
-reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+reviewSchema.index({ movie: 1, user: 1 }, { unique: true });
 
 reviewSchema.statics.calcAvrageRatings = async function (movieId) {
   const stats = await this.aggregate([

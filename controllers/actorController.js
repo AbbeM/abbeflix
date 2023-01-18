@@ -7,7 +7,7 @@ const {
   deleteOne,
 } = require('./handlerFactory');
 
-exports.getAllActors = getAll(Actor);
+exports.getAllActors = getAll(Actor, { user: false });
 exports.getActor = getOne(Actor);
 exports.createActor = createOne(Actor);
 exports.updateActor = updateOne(Actor);

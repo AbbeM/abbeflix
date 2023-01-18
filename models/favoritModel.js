@@ -23,7 +23,16 @@ const favoritSchema = mongoose.Schema(
   }
 );
 
-favoritSchema.index({ movie: 1, user: -1 });
+favoritSchema.index({ movie: 1, user: 1 }, { unique: true });
+
+favoritSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'movie',
+    select: '_id originalTitle posterPath',
+  });
+
+  next();
+});
 
 const Favorit = mongoose.model('Favorit', favoritSchema);
 

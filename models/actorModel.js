@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Movie = require('./movieModel');
 
 const actorSchema = new mongoose.Schema(
   {

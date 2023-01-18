@@ -11,6 +11,7 @@ const {
   aliasTopMovies,
   getMovieStats,
   getMonthlyPlan,
+  setMovieUserIds,
 } = require('../controllers/movieController');
 
 const router = express.Router();
@@ -31,7 +32,7 @@ router
   .post(protect, restrictTo('admin', 'member'), createMovie);
 router
   .route('/:id')
-  .get(getMovie)
+  .get(protect, setMovieUserIds, getMovie)
   .patch(protect, restrictTo('admin', 'member'), updateMovie)
   .delete(protect, restrictTo('admin', 'member'), deleteMovie);
 

@@ -15,7 +15,7 @@ exports.setMovieUserIds = (req, res, next) => {
   next();
 };
 
-exports.getAllReviews = getAll(Review);
+exports.getAllReviews = getAll(Review, { user: false });
 exports.getReview = getOne(Review);
 exports.createReview = createOne(Review);
 exports.updateReview = updateOne(Review);
