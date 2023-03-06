@@ -1,0 +1,237 @@
+// Importing styles
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+// Variables
+// --------------------------------------------------
+$color-bg: #212121;
+$color-text: #fff;
+$color-primary: #F30A49;
+$color-gray-1: #323232;
+$color-gray-2: #5A5A5A;
+$color-gray-3: #B1B1B1;
+$color-bg-form: #4B4B4B;
+$color-bg-form-label-txt: #BBBBBB;
+$color-bg-form-border: #636363;
+$color-red: #BE3B3B;
+$color-gray-txt: #D1D1D1;
+$color-gray-op-btns: #4B4B4B;
+
+$width-left: 4rem;
+$mx-wth: 72rem;
+
+
+// Global Styles
+// --------------------------------------------------
+*, body {
+  box-sizing: border-box;
+  badding: 0;
+  margin: 0;
+  font-family: 'Poppins', sans-seri;
+}
+
+body {
+  background-color: $color-bg;
+  color: $color-text;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+header {
+  width: 100%;
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    max-width: $mx-wth;
+    margin: 1.5rem auto;
+
+    .left, .right {
+      display: flex;
+    }
+    
+    ul {
+      display: flex;
+      margin-left: 2rem;
+
+      li {
+        list-style-type: none;
+        margin-right: 2rem;
+        color: $color-gray-txt;
+
+        &.active {
+          color: #fff;
+        }
+
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+
+      .profile {
+        position: relative;
+
+        .profile-circle {
+          width: 2rem;
+          height: 2rem;
+          border-radius: 50%;
+          background: $color-gray-1;
+          margin-left: 1.5rem;
+        }
+
+        .profile-body {
+          display: none;
+          position: absolute;
+          top: 2.5rem;
+          right: 0;
+          background: $color-gray-1;
+          padding: 1.1rem;
+          border-radius: 5px;
+
+          .profile-circle {
+            background: $color-gray-2;
+            margin: 0;
+            margin-right: 0.5rem;
+          }
+
+          .profile-info {
+            display: flex;
+            align-items: center;
+
+            .profile-name {
+              font-size: 0.9rem;
+              margin-bottom: -0.1rem;
+            }
+
+            .profile-email {
+              font-size: 0.7rem;
+              color: $color-gray-txt;
+              margin-top: -0.1rem;
+            }
+          }
+
+          .profile-btns {
+            display: flex;
+            align-items: center;
+            background: $color-gray-2;
+            margin-top: 1.1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+
+            &:nth-child(3) {
+              margin-top: 0.7rem;
+            }
+
+            p {
+              font-size: 0.9rem;
+              margin-left: 0.3rem;
+            }
+          }
+
+          .logout {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-align: center;
+            background: $color-red;
+          }
+        }
+      }
+    }
+  }
+}
+
+section.hero {
+  padding: $width-left;
+
+  img {
+    max-width: 22rem;
+    margin-top: 2rem;
+  }
+
+  .movie-sum {
+    margin-top: 1.5rem;
+    max-width: 32rem;
+  }
+
+  .hero-btns {
+    display: flex;
+    margin-top: 2rem;
+
+    button {
+      background: $color-gray-1;
+      border: none;
+      color: #fff;
+      padding: 0.5rem;
+      padding-bottom: 2.67px;
+      margin-left: 0.75rem;
+      border-radius: 5px;
+
+      &:nth-child(1) {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        color: #000;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0.5rem 1.5rem;
+        margin-left: 0;
+
+        p {
+          margin-left: 0.35rem;
+        }
+      }
+    }
+  }
+}
+
+section.movies-sec {
+  margin-top: 2rem;
+
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+  
+  h2 {
+    padding-left: $width-left;
+  }
+
+  .movies {
+    width: 100%;
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    display: flex;
+    gap: 1rem;
+    padding-top: 1rem;
+
+    a:nth-child(1) {
+      margin-left: $width-left;
+    }
+
+    a:nth-last-child(1) {
+      margin-right: $width-left;
+    }
+    
+    img {
+      background: $color-gray-1;
+      width: 14rem;
+      height: 9rem;
+
+    }
+  }
+}

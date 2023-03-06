@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+*, body {
+  box-sizing: border-box;
+  badding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-seri;
+}
+
+body {
+  background-color: #212121;
+  color: #fff;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header {
+  width: 100%;
+}
+header nav {
+  display: flex;
+  justify-content: space-between;
+  max-width: 72rem;
+  margin: 1.5rem auto;
+}
+header nav .left, header nav .right {
+  display: flex;
+}
+header nav ul {
+  display: flex;
+  margin-left: 2rem;
+}
+header nav ul li {
+  list-style-type: none;
+  margin-right: 2rem;
+  color: #D1D1D1;
+}
+header nav ul li.active {
+  color: #fff;
+}
+header nav ul li a {
+  color: inherit;
+  text-decoration: none;
+}
+header nav .right {
+  display: flex;
+  align-items: center;
+}
+header nav .right .profile {
+  position: relative;
+}
+header nav .right .profile .profile-circle {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #323232;
+  margin-left: 1.5rem;
+}
+header nav .right .profile .profile-body {
+  display: none;
+  position: absolute;
+  top: 2.5rem;
+  right: 0;
+  background: #323232;
+  padding: 1.1rem;
+  border-radius: 5px;
+}
+header nav .right .profile .profile-body .profile-circle {
+  background: #5A5A5A;
+  margin: 0;
+  margin-right: 0.5rem;
+}
+header nav .right .profile .profile-body .profile-info {
+  display: flex;
+  align-items: center;
+}
+header nav .right .profile .profile-body .profile-info .profile-name {
+  font-size: 0.9rem;
+  margin-bottom: -0.1rem;
+}
+header nav .right .profile .profile-body .profile-info .profile-email {
+  font-size: 0.7rem;
+  color: #D1D1D1;
+  margin-top: -0.1rem;
+}
+header nav .right .profile .profile-body .profile-btns {
+  display: flex;
+  align-items: center;
+  background: #5A5A5A;
+  margin-top: 1.1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+header nav .right .profile .profile-body .profile-btns:nth-child(3) {
+  margin-top: 0.7rem;
+}
+header nav .right .profile .profile-body .profile-btns p {
+  font-size: 0.9rem;
+  margin-left: 0.3rem;
+}
+header nav .right .profile .profile-body .logout {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  text-align: center;
+  background: #BE3B3B;
+}
+
+section.hero {
+  padding: 4rem;
+}
+section.hero img {
+  max-width: 22rem;
+  margin-top: 2rem;
+}
+section.hero .movie-sum {
+  margin-top: 1.5rem;
+  max-width: 32rem;
+}
+section.hero .hero-btns {
+  display: flex;
+  margin-top: 2rem;
+}
+section.hero .hero-btns button {
+  background: #323232;
+  border: none;
+  color: #fff;
+  padding: 0.5rem;
+  padding-bottom: 2.67px;
+  margin-left: 0.75rem;
+  border-radius: 5px;
+}
+section.hero .hero-btns button:nth-child(1) {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  color: #000;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  margin-left: 0;
+}
+section.hero .hero-btns button:nth-child(1) p {
+  margin-left: 0.35rem;
+}
+
+section.movies-sec {
+  margin-top: 2rem;
+}
+section.movies-sec ::-webkit-scrollbar {
+  width: 0;
+}
+section.movies-sec h2 {
+  padding-left: 4rem;
+}
+section.movies-sec .movies {
+  width: 100%;
+  overflow-x: scroll;
+  flex-wrap: nowrap;
+  display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+section.movies-sec .movies a:nth-child(1) {
+  margin-left: 4rem;
+}
+section.movies-sec .movies a:nth-last-child(1) {
+  margin-right: 4rem;
+}
+section.movies-sec .movies img {
+  background: #323232;
+  width: 14rem;
+  height: 9rem;
+}/*# sourceMappingURL=style.css.map */

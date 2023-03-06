@@ -4,33 +4,84 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="scss/style.css">
+  <script src="https://unpkg.com/eva-icons"></script>
   <title>Abbeflix</title>
 </head>
 <body>
   <header>
-    <div class="left">
-      <div id="logo">Abbeflix</div>
-      <ul>
-        <li><a href="http://">Filmer</a></li>
-        <li><a href="http://">Serier</a></li>
-        <li><a href="http://">Min Lista</a></li>
-      </ul>
-    </div>
-    <div class="right">
-      <div id="search">
-        <i data-eva="search-outline" data-eva-fill="#fff" data-eva-height="28" data-eva-width="28"></i>
+    <nav>
+      <div class="left">
+        <div class="logo">Abbeflix</div>
+  
+        <ul>
+          <li class="active"><a href="#">Hem</a></li>
+          <li><a href="#">Filmer</a></li>
+          <li><a href="#">Min Lista</a></li>
+        </ul>
       </div>
-      <div id="login">
-        <a href="public/login.html">Logga In</a>
+  
+      <div class="right">
+        <i data-eva="search-outline" data-eva-fill="#fff" ></i>
+        <div class="profile">
+          <div class="profile-circle"></div>
+          <div class="profile-body">
+            <div class="profile-info">
+              <div class="profile-circle"></div>
+              <span>
+                <div class="profile-name">Abbe</div>
+                <div class="profile-email">abbe.mb@icloud.com</div>
+              </span>
+            </div>
+
+            <div class="profile-btns">
+              <i data-eva="star-outline" data-eva-fill="#fff" data-eva-height="20" data-eva-width="20"></i>
+              <p>Min Lista</p>
+            </div>
+
+            <div class="profile-btns">
+              <i data-eva="settings-outline" data-eva-fill="#fff" data-eva-height="20" data-eva-width="20"></i>
+              <p>Mitt konto</p>
+            </div>
+
+            <div class="logout">Logga ut</div>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
   </header>
 
   <section class="hero">
-    <div class="left">
-      
+    <img src="http://occ-0-4154-38.1.nflxso.net/dnm/api/v6/tx1O544a9T7n8Z_G12qaboulQQE/AAAABc0NowBbZ7_OpD6rJpQ5-ezjUZefReSctN-r1cM93UCL7vk0XeRo9yHzDXPO88IWGeKHrHlZ_ABoeJSSS5wtaGY7X0CSagSJgCTlA8ka2d8.png?r=583" alt="" class="movie-logo">
+    <div class="movie-sum">En till synes fridsam förortsman och familjefar var en gång en hårdkokt agent – och ger sig snart ut för att hämnas när hans hem utsätts för inbrott.</div>
+    <div class="hero-btns">
+      <button class="play"><svg width="25" height="25" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 9.76795C20.3333 10.5377 20.3333 12.4622 19 13.232L3.25 22.3253C1.91667 23.0951 0.25 22.1329 0.25 20.5933V2.40673C0.25 0.86713 1.91667 -0.0951197 3.25 0.674681L19 9.76795Z" fill="black"/>
+        </svg><p>Spela upp</p> </button>
+      <button class="info"><i data-eva="info-outline" data-eva-fill="#fff" data-eva-height="30" data-eva-width="30"></i></button>
+      <button class="add-to-list"><i data-eva="plus-outline" data-eva-fill="#fff" data-eva-height="30" data-eva-width="30"></i></button>
     </div>
-    <div class="right"></div>
   </section>
+
+  <!-- <section class="movies-sec">
+    <h2 class="movies-tilte">Min Lista</h2>
+    <div class="movies">
+      <a href=""><img src="" alt=""></a>
+      <a href=""><img src="" alt=""></a>
+      <a href=""><img src="" alt=""></a>
+      <a href=""><img src="" alt=""></a>
+      <a href=""><img src="" alt=""></a>
+      <a href=""><img src="" alt=""></a>
+      <a href=""><img src="" alt=""></a>
+      <a href=""><img src="" alt=""></a>
+      <a href=""><img src="" alt=""></a>
+      <a href=""><img src="" alt=""></a>
+    </div>
+  </section> -->
+
+  <script>
+    eva.replace()
+  </script>
+  <script src="js/index.js"></script>
 </body>
 </html>
