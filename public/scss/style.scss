@@ -202,13 +202,26 @@ section.hero {
 
 section.movies-sec {
   margin-top: 2rem;
+  margin-left: $width-left;
 
   ::-webkit-scrollbar {
-    width: 0;
+    height: 5px !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $color-gray-1;
+    width: 1px;
+    height: 1px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    margin-left: 10rem;
+    margin-top: 2rem;
   }
   
-  h2 {
-    padding-left: $width-left;
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 
   .movies {
@@ -219,12 +232,16 @@ section.movies-sec {
     gap: 1rem;
     padding-top: 1rem;
 
-    a:nth-child(1) {
-      margin-left: $width-left;
-    }
+    // a:nth-child(1) {
+    //   margin-left: $width-left;
+    // }
 
     a:nth-last-child(1) {
       margin-right: $width-left;
+    }
+
+    a {
+      margin-bottom: 0.2rem;
     }
     
     img {

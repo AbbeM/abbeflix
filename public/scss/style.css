@@ -153,12 +153,23 @@ section.hero .hero-btns button:nth-child(1) p {
 
 section.movies-sec {
   margin-top: 2rem;
+  margin-left: 4rem;
+  /* Handle on hover */
 }
 section.movies-sec ::-webkit-scrollbar {
-  width: 0;
+  height: 5px !important;
 }
-section.movies-sec h2 {
-  padding-left: 4rem;
+section.movies-sec ::-webkit-scrollbar-thumb {
+  background: #323232;
+  width: 1px;
+  height: 1px;
+}
+section.movies-sec ::-webkit-scrollbar-corner {
+  margin-left: 10rem;
+  margin-top: 2rem;
+}
+section.movies-sec ::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 section.movies-sec .movies {
   width: 100%;
@@ -168,11 +179,11 @@ section.movies-sec .movies {
   gap: 1rem;
   padding-top: 1rem;
 }
-section.movies-sec .movies a:nth-child(1) {
-  margin-left: 4rem;
-}
 section.movies-sec .movies a:nth-last-child(1) {
   margin-right: 4rem;
+}
+section.movies-sec .movies a {
+  margin-bottom: 0.2rem;
 }
 section.movies-sec .movies img {
   background: #323232;
