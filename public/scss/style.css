@@ -21,6 +21,11 @@ a {
   color: inherit;
 }
 
+section {
+  margin-left: 4rem;
+  margin-top: 6.25rem;
+}
+
 header {
   width: 100%;
 }
@@ -114,7 +119,8 @@ header nav .right .profile .profile-body .logout {
 }
 
 section.hero {
-  padding: 4rem;
+  padding: 4rem 4rem 4rem 0;
+  margin-top: 2rem !important;
 }
 section.hero img {
   max-width: 22rem;
@@ -152,8 +158,6 @@ section.hero .hero-btns button:nth-child(1) p {
 }
 
 section.movies-sec {
-  margin-top: 2rem;
-  margin-left: 4rem;
   /* Handle on hover */
 }
 section.movies-sec ::-webkit-scrollbar {

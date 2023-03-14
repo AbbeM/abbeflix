@@ -1,0 +1,68 @@
+@import 'style.scss';
+
+section {
+  margin-left: $width-left;
+  margin-top: 6.25rem;
+}
+
+section.actors-sec {
+  .actors {
+    display: flex;
+    gap: 1.5rem;
+
+    .actor {
+      margin-top: 1rem;
+      text-align: center;
+  
+      .actor-pic {
+        width: 6.25rem;
+        height: 6.25rem;
+        border-radius: 50%;
+        background: $color-gray-1;
+      }
+
+      .actor-name {
+        margin-top: 0.5rem;
+      }
+
+      .actor-roll {
+        font-size: 0.9rem;
+        color: $color-gray-3;
+      }
+    }
+  }
+}
+
+section.movie-info-sec {
+  .movie-info {
+    margin-top: 1.5rem;
+    width: min-content;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    background: $color-gray-1;
+    display: flex;
+
+    .left, .right {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+
+      h3 {
+        font-weight: 500;
+      }
+
+      p {
+        color: #d3d3d3;
+        min-width: 10rem;
+      }
+
+      .producenter {
+        min-width: 22rem;
+      }
+    }
+
+    .left {
+      margin-right: 10rem;
+    }
+  }
+}
