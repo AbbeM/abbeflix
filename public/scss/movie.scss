@@ -66,3 +66,28 @@ section.movie-info-sec {
     }
   }
 }
+
+footer {
+  width: 100%;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  background: $color-gray-1;
+
+  .upp {
+    display: flex;
+    justify-content: space-between;
+
+    .info {
+      .mail {
+        color: #F04478;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .down {
+    display: flex;
+    justify-content: space-between;
+  }
+}

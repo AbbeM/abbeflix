@@ -193,4 +193,18 @@ section.movies-sec .movies img {
   background: #323232;
   width: 14rem;
   height: 9rem;
+}
+
+footer {
+  max-width: 72rem;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+}
+footer .upp {
+  display: flex;
+}
+footer .down {
+  display: flex;
+  justify-content: space-between;
 }/*# sourceMappingURL=style.css.map */

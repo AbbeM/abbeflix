@@ -120,6 +120,7 @@ header nav .right .profile .profile-body .logout {
 
 section.hero {
   padding: 4rem 4rem 4rem 0;
+  margin-top: 2rem !important;
 }
 section.hero img {
   max-width: 22rem;
@@ -194,6 +195,20 @@ section.movies-sec .movies img {
   height: 9rem;
 }
 
+footer {
+  max-width: 72rem;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+}
+footer .upp {
+  display: flex;
+}
+footer .down {
+  display: flex;
+  justify-content: space-between;
+}
+
 section {
   margin-left: 4rem;
   margin-top: 6.25rem;
@@ -247,4 +262,24 @@ section.movie-info-sec .movie-info .left .producenter, section.movie-info-sec .m
 }
 section.movie-info-sec .movie-info .left {
   margin-right: 10rem;
+}
+
+footer {
+  width: 100%;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  background: #323232;
+}
+footer .upp {
+  display: flex;
+  justify-content: space-between;
+}
+footer .upp .info .mail {
+  color: #F04478;
+  font-size: 1.5rem;
+}
+footer .down {
+  display: flex;
+  justify-content: space-between;
 }/*# sourceMappingURL=movie.css.map */

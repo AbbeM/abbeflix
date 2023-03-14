@@ -256,4 +256,18 @@ section.movies-sec {
   }
 }
 
+footer {
+  max-width: $mx-wth;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
 
+  .upp {
+    display: flex;
+  }
+
+  .down {
+    display: flex;
+    justify-content: space-between;
+  }
+}
