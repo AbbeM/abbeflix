@@ -45,6 +45,10 @@ a {
   color: inherit;
 }
 
+section {
+  margin-left: $width-left;
+  margin-top: 6.25rem;
+}
 
 header {
   width: 100%;
@@ -157,7 +161,8 @@ header {
 }
 
 section.hero {
-  padding: $width-left;
+  padding: $width-left $width-left $width-left 0;
+  margin-top: 2rem !important;
 
   img {
     max-width: 22rem;
@@ -201,8 +206,6 @@ section.hero {
 }
 
 section.movies-sec {
-  margin-top: 2rem;
-  margin-left: $width-left;
 
   ::-webkit-scrollbar {
     height: 5px !important;
