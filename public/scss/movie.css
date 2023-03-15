@@ -26,8 +26,19 @@ section {
   margin-top: 6.25rem;
 }
 
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e43569;
+}
+
 header {
   width: 100%;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  background: rgb(33, 33, 32);
+  background: linear-gradient(180deg, rgb(18, 18, 17) 10%, rgba(33, 33, 33, 0) 100%);
 }
 header nav {
   display: flex;
@@ -37,6 +48,7 @@ header nav {
 }
 header nav .left, header nav .right {
   display: flex;
+  align-items: center;
 }
 header nav ul {
   display: flex;
@@ -58,21 +70,43 @@ header nav .right {
   display: flex;
   align-items: center;
 }
+header nav .right .search {
+  margin-right: 1.5rem;
+}
+header nav .right #login {
+  display: none;
+  padding: 0.5rem 0.9rem;
+  background: #F30A49;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+}
 header nav .right .profile {
   position: relative;
+}
+header nav .right .profile:hover .profile-wrappar,
+header nav .right .profile .profile-wrappar:hover {
+  display: block;
 }
 header nav .right .profile .profile-circle {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
   background: #323232;
-  margin-left: 1.5rem;
 }
-header nav .right .profile .profile-body {
+header nav .right .profile .profile-circle img {
+  width: 100%;
+}
+header nav .right .profile .profile-wrappar {
   display: none;
   position: absolute;
-  top: 2.5rem;
+  top: 2rem;
   right: 0;
+}
+header nav .right .profile .profile-body {
+  margin-top: 0.5rem;
   background: #323232;
   padding: 1.1rem;
   border-radius: 5px;
@@ -116,11 +150,27 @@ header nav .right .profile .profile-body .logout {
   border-radius: 5px;
   text-align: center;
   background: #BE3B3B;
+  cursor: pointer;
+}
+
+.hero-bk {
+  position: absolute;
+  z-index: -2;
+  width: 100%;
+  top: 0;
+}
+
+.bk-filter {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 50rem;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgb(33, 33, 32) 75%);
 }
 
 section.hero {
-  padding: 4rem 4rem 4rem 0;
-  margin-top: 2rem !important;
+  padding: 4rem 4rem 0 0;
 }
 section.hero img {
   max-width: 22rem;
@@ -194,24 +244,118 @@ section.movies-sec .movies img {
   width: 14rem;
   height: 9rem;
 }
+section.movies-sec .top-movies {
+  margin-top: -4rem;
+}
+section.movies-sec .top-movies a {
+  display: flex;
+  align-items: center;
+}
+section.movies-sec .top-movies a:nth-child(1) img {
+  margin-left: -2rem;
+}
+section.movies-sec .top-movies a:nth-child(10) p {
+  letter-spacing: -2.8rem;
+}
+section.movies-sec .top-movies img {
+  background: #323232;
+  width: 135px;
+  height: 195px;
+  z-index: 2;
+  margin-left: -3rem;
+}
+section.movies-sec .top-movies p {
+  font-size: 240px;
+  font-weight: 600;
+  color: #5A5A5A;
+}
 
 footer {
-  max-width: 72rem;
-  margin: 1.5rem auto;
+  width: 100%;
+  padding-top: 3.75rem;
+  padding-bottom: 1.9rem;
+  margin-top: 8rem;
   display: flex;
   flex-direction: column;
+  background: #323232;
 }
 footer .upp {
-  display: flex;
-}
-footer .down {
+  width: 72rem;
+  margin: auto;
   display: flex;
   justify-content: space-between;
+}
+footer .upp .info {
+  font-size: 1.1rem;
+}
+footer .upp .info .logo {
+  font-size: 2.5rem;
+  line-height: 1;
+  color: #B1B1B1;
+}
+footer .upp .info .mail {
+  color: #F04478;
+  margin-top: 1rem;
+}
+footer .upp .info .phone {
+  color: #B3B3B3;
+  margin-top: 0.5rem;
+}
+footer .upp .cul {
+  font-size: 1rem;
+}
+footer .upp .cul h4 {
+  font-weight: 500;
+}
+footer .upp .cul p {
+  margin-top: 0.5rem;
+  color: #B3B3B3;
+}
+footer .line {
+  width: 72rem;
+  margin: auto;
+  margin-top: 3rem;
+  height: 2px;
+  background: #B1B1B1;
+}
+footer .down {
+  font-size: 0.9rem;
+  width: 72rem;
+  margin: auto;
+  margin-top: 1.9rem;
+  display: flex;
+  justify-content: space-between;
+}
+footer .down a {
+  text-decoration: underline;
 }
 
 section {
   margin-left: 4rem;
   margin-top: 6.25rem;
+}
+
+section.hero .movie-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  color: #CECECE;
+  font-size: 1.1rem;
+}
+section.hero .movie-info .top {
+  background: #F30A49;
+  color: #fff;
+  font-size: 1rem;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+section.hero .movie-info .age {
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 0 3px;
+  font-size: 1rem;
 }
 
 section.actors-sec .actors {
@@ -262,24 +406,4 @@ section.movie-info-sec .movie-info .left .producenter, section.movie-info-sec .m
 }
 section.movie-info-sec .movie-info .left {
   margin-right: 10rem;
-}
-
-footer {
-  width: 100%;
-  margin: 1.5rem auto;
-  display: flex;
-  flex-direction: column;
-  background: #323232;
-}
-footer .upp {
-  display: flex;
-  justify-content: space-between;
-}
-footer .upp .info .mail {
-  color: #F04478;
-  font-size: 1.5rem;
-}
-footer .down {
-  display: flex;
-  justify-content: space-between;
 }/*# sourceMappingURL=movie.css.map */

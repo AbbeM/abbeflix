@@ -47,11 +47,22 @@ a {
 
 section {
   margin-left: $width-left;
-  margin-top: 6.25rem;
+  margin-top: 4rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e43569;
 }
 
 header {
   width: 100%;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  background: rgb(33,33,32);
+  background: linear-gradient(180deg, rgb(18, 18, 17) 10%, rgba(33,33,33,0) 100%);
 
   nav {
     display: flex;
@@ -61,6 +72,7 @@ header {
 
     .left, .right {
       display: flex;
+      align-items: center;
     }
     
     ul {
@@ -87,25 +99,53 @@ header {
       display: flex;
       align-items: center;
 
+      .search {
+        margin-right: 1.5rem;
+      }
+
+      #login {
+        display: none;
+        padding: 0.5rem 0.9rem;
+        background: #F30A49;
+        color: #fff;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: none;
+        border-radius: 5px;
+      }
+
       .profile {
         position: relative;
+
+        &:hover .profile-wrappar,
+        .profile-wrappar:hover {
+          display: block;
+        }
 
         .profile-circle {
           width: 2rem;
           height: 2rem;
           border-radius: 50%;
           background: $color-gray-1;
-          margin-left: 1.5rem;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .profile-wrappar {
+          display: none;
+          position: absolute;
+          top: 2rem;
+          right: 0;
         }
 
         .profile-body {
-          display: none;
-          position: absolute;
-          top: 2.5rem;
-          right: 0;
+          margin-top: 0.5rem;
           background: $color-gray-1;
           padding: 1.1rem;
           border-radius: 5px;
+
 
           .profile-circle {
             background: $color-gray-2;
@@ -153,6 +193,7 @@ header {
             border-radius: 5px;
             text-align: center;
             background: $color-red;
+            cursor: pointer;
           }
         }
       }
@@ -160,9 +201,25 @@ header {
   }
 }
 
+.hero-bk {
+  position: absolute;
+  z-index: -2;
+  width: 100%;
+  top: 0;
+  // opacity: 0.6;
+}
+
+.bk-filter {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 50rem;
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(33,33,32,1) 75%);
+}
+
 section.hero {
-  padding: $width-left $width-left $width-left 0;
-  margin-top: 2rem !important;
+  padding: 4rem $width-left 0 0;
 
   img {
     max-width: 22rem;
@@ -209,6 +266,7 @@ section.movies-sec {
 
   ::-webkit-scrollbar {
     height: 5px !important;
+    display: none;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -250,24 +308,112 @@ section.movies-sec {
     img {
       background: $color-gray-1;
       width: 14rem;
-      height: 9rem;
+      // height: 9rem;
+    }
+  }
 
+  .top-movies {
+    margin-top: -4rem;
+
+    a {
+      display: flex;
+      align-items: center;
+
+      &:nth-child(1) {
+        img {
+          margin-left: -2rem;
+        }
+      }
+
+      &:nth-child(10) {
+        p {
+          letter-spacing: -2.8rem;
+        }
+      }
+    }
+
+    img {
+      background: $color-gray-1;
+      width: 135px;
+      z-index: 2;
+      margin-left: -3rem;
+    }
+
+    p {
+      font-size: 240px;
+      font-weight: 600;
+      color: #5A5A5A;
     }
   }
 }
 
 footer {
-  max-width: $mx-wth;
-  margin: 1.5rem auto;
+  width: 100%;
+  padding-top: 3.75rem;
+  padding-bottom: 1.9rem;
+  margin-top: 8rem;
   display: flex;
   flex-direction: column;
+  background: $color-gray-1;
 
   .upp {
+    width: $mx-wth;
+    margin: auto;
     display: flex;
+    justify-content: space-between;
+
+    .info {
+      font-size: 1.1rem;
+
+      .logo {
+        font-size: 2.5rem;
+        line-height: 1;
+        color: #B1B1B1;
+      }
+
+      .mail {
+        color: #F04478;
+        margin-top: 1rem;
+      }
+
+      .phone {
+        color: #B3B3B3;
+        margin-top: 0.5rem;
+      }
+    }
+
+    .cul {
+      font-size: 1rem;
+
+      h4 {
+        font-weight: 500;
+      }
+
+      p {
+        margin-top: 0.5rem;
+        color: #B3B3B3;
+      }
+    }
+  }
+
+  .line {
+    width: $mx-wth;
+    margin: auto;
+    margin-top: 3rem;
+    height: 2px;
+    background: #B1B1B1;
   }
 
   .down {
+    font-size: 0.9rem;
+    width: $mx-wth;
+    margin: auto;
+    margin-top: 1.9rem;
     display: flex;
     justify-content: space-between;
+
+    a {
+      text-decoration: underline;
+    }
   }
 }

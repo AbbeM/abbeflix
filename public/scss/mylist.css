@@ -330,154 +330,23 @@ footer .down a {
   text-decoration: underline;
 }
 
-section {
-  max-width: 72rem;
-  margin: auto;
-  margin-top: 4rem;
+section.mylist-sec h2 {
+  font-size: 1.8rem;
 }
-
-section.sidebar {
-  width: 100%;
+section.mylist-sec h2.actor {
+  font-size: 2.3rem;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+section.mylist-sec .movies {
   display: flex;
-}
-section.sidebar .profile-body-sec {
-  background: #323232;
-  display: flex;
-  flex-direction: column;
-  margin-top: 3rem;
-  padding: 1.8rem;
-  border-radius: 10px;
-  min-width: 18rem;
-}
-section.sidebar .profile-body-sec .profile-circle {
-  background: #5A5A5A;
-  margin: 0;
-  margin-right: 0.5rem;
-}
-section.sidebar .profile-body-sec .profile-info {
-  display: flex;
-  align-items: center;
-}
-section.sidebar .profile-body-sec .profile-info .profile-name {
-  font-size: 0.9rem;
-  margin-bottom: -0.1rem;
-}
-section.sidebar .profile-body-sec .profile-info .profile-email {
-  font-size: 0.7rem;
-  color: #D1D1D1;
-  margin-top: -0.1rem;
-}
-section.sidebar .profile-body-sec .profile-btns {
-  display: flex;
-  align-items: center;
-  background: #4B4B4B;
-  margin-top: 1.1rem;
-  padding: 0.8rem;
-  border-radius: 5px;
-  cursor: pointer;
-}
-section.sidebar .profile-body-sec .profile-btns:nth-child(3) {
-  margin-top: 0.7rem;
-}
-section.sidebar .profile-body-sec .profile-btns p {
-  font-size: 0.9rem;
-  margin-left: 0.3rem;
-}
-section.sidebar .profile-body-sec .remove {
-  margin-top: auto;
-  background: #BE3B3B;
-}
-section.sidebar .layout {
-  display: none;
-  margin-top: 3rem;
-  margin-left: 3rem;
-}
-section.sidebar .layout.active {
-  display: block !important;
-}
-section.sidebar .layout h1 {
-  font-weight: 500;
-  font-size: 1.9rem;
-}
-section.sidebar .layout h2 {
-  font-weight: 400;
-  margin-top: 2.5rem;
-  margin-bottom: 0.8rem;
-}
-section.sidebar .layout .profile {
-  display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-top: 2rem;
 }
-section.sidebar .layout .profile .profile-img {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
-  background-color: #5A5A5A;
-  margin-right: 1rem;
-}
-section.sidebar .layout .profile .profile-img img {
-  width: 100%;
-}
-section.sidebar .layout .profile .name {
-  font-size: 1.4rem;
-  font-weight: 400;
-}
-section.sidebar .layout .profile .email {
-  font-size: 1.2rem;
-  color: #AEAEAE;
-}
-section.sidebar .layout .settings-email {
-  margin-top: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #4B4B4B;
-  border: 2px solid #636363;
+section.mylist-sec .movies div {
+  background: #323232;
+  width: 14rem;
+  height: 9rem;
   border-radius: 5px;
-  padding: 0.65rem 1rem;
-  font-weight: 300;
-}
-section.sidebar .layout .settings-name-container {
-  display: flex;
-}
-section.sidebar .layout .settings-name-container .settings-name {
-  display: flex;
-  flex-direction: column;
-  background-color: #4B4B4B;
-  border: 2px solid #636363;
-  border-radius: 5px;
-  padding: 0.5rem 0.9rem;
-}
-section.sidebar .layout .settings-name-container .settings-name:nth-child(1) {
-  margin-right: 1rem;
-}
-section.sidebar .layout .settings-name-container .settings-name label {
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: #BBBBBB;
-}
-section.sidebar .layout .settings-name-container .settings-name input {
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 1rem;
-}
-section.sidebar .layout .save {
-  background: #249367;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
-  margin-top: 3rem;
-  cursor: pointer;
-}
-section.sidebar .pass-alyout h2 {
-  font-size: 1rem;
-}
-section.sidebar .pass-alyout input[type=password] {
-  min-width: 20rem;
-  color: #fff;
-  font-size: 1rem;
-}/*# sourceMappingURL=profile.css.map */
+}/*# sourceMappingURL=mylist.css.map */

@@ -5,6 +5,33 @@ section {
   margin-top: 6.25rem;
 }
 
+section.hero {
+  .movie-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    color: #CECECE;
+    font-size: 1.1rem;
+
+    .top {
+      background: #F30A49;
+      color: #fff;
+      font-size: 1rem;
+      padding: 4px 10px;
+      border-radius: 5px;
+    }
+
+    .age {
+      color: #fff;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      padding: 0 3px;
+      font-size: 1rem;
+    }
+  }
+}
+
 section.actors-sec {
   .actors {
     display: flex;
@@ -64,30 +91,5 @@ section.movie-info-sec {
     .left {
       margin-right: 10rem;
     }
-  }
-}
-
-footer {
-  width: 100%;
-  margin: 1.5rem auto;
-  display: flex;
-  flex-direction: column;
-  background: $color-gray-1;
-
-  .upp {
-    display: flex;
-    justify-content: space-between;
-
-    .info {
-      .mail {
-        color: #F04478;
-        font-size: 1.5rem;
-      }
-    }
-  }
-
-  .down {
-    display: flex;
-    justify-content: space-between;
   }
 }

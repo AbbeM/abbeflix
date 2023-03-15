@@ -1,0 +1,29 @@
+@import 'style.scss';
+
+section.hero {
+  margin-top: 3rem;
+
+  .history {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+
+    p:nth-child(1) {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #B3B3B3;
+      margin-right: 0.5rem;
+    }
+
+    p:nth-child(2) {
+      font-size: 1.3rem;
+      color: #B3B3B3;
+      margin-right: 0.5rem;
+    }
+
+    p:nth-child(3) {
+      font-size: 1.8em;
+      font-weight: 600;
+    }
+  }
+}
