@@ -406,4 +406,27 @@ section.movie-info-sec .movie-info .left .producenter, section.movie-info-sec .m
 }
 section.movie-info-sec .movie-info .left {
   margin-right: 10rem;
+<<<<<<< HEAD
+=======
+}
+
+footer {
+  width: 100%;
+  display: none;
+  display: flex;
+  flex-direction: column;
+  background: #323232;
+}
+footer .upp {
+  display: flex;
+  justify-content: space-between;
+}
+footer .upp .info .mail {
+  color: #F04478;
+  font-size: 1.5rem;
+}
+footer .down {
+  display: flex;
+  justify-content: space-between;
+>>>>>>> 36434c0 (yes)
 }/*# sourceMappingURL=movie.css.map */
