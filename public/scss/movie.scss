@@ -117,3 +117,31 @@ section.movie-info-sec {
     }
   }
 }
+<<<<<<< HEAD
+=======
+
+footer {
+  width: 100%;
+  display: none;
+  display: flex;
+  flex-direction: column;
+  background: $color-gray-1;
+
+  .upp {
+    display: flex;
+    justify-content: space-between;
+
+    .info {
+      .mail {
+        color: #F04478;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .down {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+>>>>>>> 36434c0 (yes)

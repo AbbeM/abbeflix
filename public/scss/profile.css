@@ -329,6 +329,20 @@ footer .down a {
   text-decoration: underline;
 }
 
+footer {
+  max-width: 72rem;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+}
+footer .upp {
+  display: flex;
+}
+footer .down {
+  display: flex;
+  justify-content: space-between;
+}
+
 section {
   max-width: 72rem;
   margin: auto;
