@@ -23,7 +23,7 @@ a {
 
 section {
   margin-left: 4rem;
-  margin-top: 6.25rem;
+  margin-top: 4rem;
 }
 
 .logo {
@@ -212,6 +212,7 @@ section.movies-sec {
 }
 section.movies-sec ::-webkit-scrollbar {
   height: 5px !important;
+  display: none;
 }
 section.movies-sec ::-webkit-scrollbar-thumb {
   background: #323232;
@@ -242,7 +243,6 @@ section.movies-sec .movies a {
 section.movies-sec .movies img {
   background: #323232;
   width: 14rem;
-  height: 9rem;
 }
 section.movies-sec .top-movies {
   margin-top: -4rem;
@@ -260,7 +260,6 @@ section.movies-sec .top-movies a:nth-child(10) p {
 section.movies-sec .top-movies img {
   background: #323232;
   width: 135px;
-  height: 195px;
   z-index: 2;
   margin-left: -3rem;
 }

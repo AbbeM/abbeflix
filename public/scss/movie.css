@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 *, body {
   box-sizing: border-box;
-  badding: 0;
+  padding: 0;
   margin: 0;
   font-family: "Poppins", sans-seri;
 }
@@ -23,7 +23,7 @@ a {
 
 section {
   margin-left: 4rem;
-  margin-top: 6.25rem;
+  margin-top: 4rem;
 }
 
 .logo {
@@ -212,6 +212,7 @@ section.movies-sec {
 }
 section.movies-sec ::-webkit-scrollbar {
   height: 5px !important;
+  display: none;
 }
 section.movies-sec ::-webkit-scrollbar-thumb {
   background: #323232;
@@ -242,7 +243,6 @@ section.movies-sec .movies a {
 section.movies-sec .movies img {
   background: #323232;
   width: 14rem;
-  height: 9rem;
 }
 section.movies-sec .top-movies {
   margin-top: -4rem;
@@ -260,7 +260,6 @@ section.movies-sec .top-movies a:nth-child(10) p {
 section.movies-sec .top-movies img {
   background: #323232;
   width: 135px;
-  height: 195px;
   z-index: 2;
   margin-left: -3rem;
 }
@@ -358,9 +357,29 @@ section.hero .movie-info .age {
   font-size: 1rem;
 }
 
+section.actors-sec {
+  /* Handle on hover */
+}
+section.actors-sec ::-webkit-scrollbar {
+  height: 5px !important;
+  display: none;
+}
+section.actors-sec ::-webkit-scrollbar-thumb {
+  background: #323232;
+  width: 1px;
+  height: 1px;
+}
+section.actors-sec ::-webkit-scrollbar-corner {
+  margin-left: 10rem;
+  margin-top: 2rem;
+}
+section.actors-sec ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 section.actors-sec .actors {
   display: flex;
   gap: 1.5rem;
+  overflow-x: scroll;
 }
 section.actors-sec .actors .actor {
   margin-top: 1rem;
@@ -371,6 +390,8 @@ section.actors-sec .actors .actor .actor-pic {
   height: 6.25rem;
   border-radius: 50%;
   background: #323232;
+  background-size: cover;
+  background-position: center;
 }
 section.actors-sec .actors .actor .actor-name {
   margin-top: 0.5rem;

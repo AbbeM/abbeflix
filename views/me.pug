@@ -1,0 +1,49 @@
+extends base
+
+block content
+  section.sidebar
+      .profile-body-sec
+        .profile-info
+          .profile-circle
+          span
+            .profile-name= user.name
+            .profile-email= user.email
+        .profile-btns.settings
+          i(data-eva='star-outline', data-eva-fill='#fff', data-eva-height='20', data-eva-width='20')
+          p Min Lista
+        .profile-btns.pass
+          i(data-eva='settings-outline', data-eva-fill='#fff', data-eva-height='20', data-eva-width='20')
+          p Mitt konto
+        .profile-btns.remove
+          i(data-eva='settings-outline', data-eva-fill='#fff', data-eva-height='20', data-eva-width='20')
+          p Mitt konto
+      .layout.settings.active
+        h1 Kontoinst&auml;llningar
+        .profile
+          .profile-img
+            img(src='assets/imgs/IMG_0650.PNG', alt='')
+          .profile-info
+            .name=user.name
+            .email= user.email
+        h2 Mailadress
+        .settings-email
+          p= user.email
+          i(data-eva='at-outline', data-eva-fill='#fff')
+        h2 Fullnamn
+        .settings-name-container
+          .settings-name.f-name
+            label(for='f-name') F&ouml;rnamn
+            input#f-name.text(type='text', name='f-name', value=`${user.name}`)
+          .settings-name.l-name
+            label(for='l-name') Efternamn
+            input#l-name.text(type='text', name='l-name', value=`${user.name}`)
+        input.save(type='button', value='Spara Ändringar')
+      .layout.pass.pass-alyout
+        h1 &angst;terst&auml;ll L&ouml;senordet
+        h2 Gamla L&ouml;senordet
+        input#old-pass.settings-email(type='password', name='old-pass')
+        h2 Nya L&ouml;senordet
+        input#new-pass.settings-email(type='password', name='new-pass')
+        h2 Upprepa L&ouml;senordet
+        input#rep-pass.settings-email(type='password', name='rep-pass')
+        input.save(type='button', value='Återställ Lösenordet')

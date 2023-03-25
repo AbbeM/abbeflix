@@ -1,3 +1,4 @@
+/* eslint-disable */
 const inputs = document.querySelectorAll('input');
 
 const patterns = {

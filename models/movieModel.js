@@ -20,10 +20,19 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Du måste ange sammanfattning!'],
     },
-    posterPath: {
+    posterVertical: {
       type: String,
       default: null,
     },
+    posterBackgrund: {
+      type: String,
+      default: null,
+    },
+    posterHorizontal: {
+      type: String,
+      default: null,
+    },
+    titleImg: String,
     releaseDate: {
       type: Date,
       required: [true, 'Du måste ange utgivningsdatum!'],

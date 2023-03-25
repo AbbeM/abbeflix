@@ -1,0 +1,54 @@
+extends base
+
+block content
+  img.hero-bk(src='https://m.media-amazon.com/images/M/MV5BNjA5NDcxNTM1NF5BMl5BanBnXkFtZTgwMTUzODMyMTI@._V1_FMjpg_UX1280_.jpg' alt='')
+  .bk-filter
+  section.hero
+    img.movie-logo(src='http://occ-0-4154-38.1.nflxso.net/dnm/api/v6/tx1O544a9T7n8Z_G12qaboulQQE/AAAABc0NowBbZ7_OpD6rJpQ5-ezjUZefReSctN-r1cM93UCL7vk0XeRo9yHzDXPO88IWGeKHrHlZ_ABoeJSSS5wtaGY7X0CSagSJgCTlA8ka2d8.png?r=583' alt='')
+    .movie-sum
+      | En till synes fridsam f&ouml;rortsman och familjefar var en g&aring;ng en h&aring;rdkokt agent &ndash; och ger sig snart ut f&ouml;r att h&auml;mnas n&auml;r hans hem uts&auml;tts f&ouml;r inbrott.
+    .hero-btns
+      button.play
+        svg(width='25' height='25' viewbox='0 0 20 23' fill='none' xmlns='http://www.w3.org/2000/svg')
+          path(d='M19 9.76795C20.3333 10.5377 20.3333 12.4622 19 13.232L3.25 22.3253C1.91667 23.0951 0.25 22.1329 0.25 20.5933V2.40673C0.25 0.86713 1.91667 -0.0951197 3.25 0.674681L19 9.76795Z' fill='black')
+        p Spela upp
+      button.info
+        i(data-eva='info-outline' data-eva-fill='#fff' data-eva-height='30' data-eva-width='30')
+      button.add-to-list
+        i(data-eva='plus-outline' data-eva-fill='#fff' data-eva-height='30' data-eva-width='30')
+
+  section.movies-sec
+    h2.movies-tilte Actionfilmer
+    .movies
+      each movie in actionMovies
+        a(href=`/movie/${movie._id}`)
+          img(src=`${movie.posterHorizontal}` alt=`${movie.originalTitle}`)
+
+  section.movies-sec
+    h2.movies-tilte Fr&aring;n min lista
+    .movies
+      each movie in actionMovies
+        a(href=`/movie/${movie.slug}`)
+          img(src=`${movie.posterPath}` alt=`${movie.originalTitle}`)
+
+  section.movies-sec
+    h2.movies-tilte Top 10 bland filmer idag
+    .movies.top-movies
+      each topMovie, index in top10
+        a(href=`/movie/${topMovie.slug}`)
+          p=index+1
+          img(src=`${topMovie.posterVertical}` alt=`${topMovie.originalTitle}`)
+
+  section.movies-sec
+      h2.movies-tilte Fr&aring;n min lista
+      .movies
+        each movie in actionMovies
+          a(href=`/movie/${movie.slug}`)
+            img(src=`${movie.posterPath}` alt=`${movie.originalTitle}`)
+  
+  section.movies-sec
+      h2.movies-tilte Fr&aring;n min lista
+      .movies
+        each movie in actionMovies
+          a(href=`/movie/${movie.slug}`)
+            img(src=`${movie.posterPath}` alt=`${movie.originalTitle}`)

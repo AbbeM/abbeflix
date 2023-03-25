@@ -15,7 +15,7 @@
   </header>
 
   <section id="login-form">
-    <form action="GET" id="login">
+    <form action="POST" id="login">
       <h1>Välkommen!</h1>
       <p>Lorem Ipsum is simply dummy text of the</p>
 
@@ -34,10 +34,44 @@
     
       <input type="submit" value="Logga In">
 
-      <div id="register">Inget konto? <a href="http://">Skapa ett</a></div>
     </form>
 
-    <div class="fom-right"></div>
+    <form action="POST" id="signup" class="active">
+      <!-- STEP 1 -->
+      <label for="name" class="step-1">Namn</label>
+      <input type="text" name="name" id="name" class="step-1">
+      <div class="err step-1" id="name-err">Email must be a valid address, e.g. me@mydomain.com</div>
+
+      <label for="email" class="step-1">E-post</label>
+      <input type="text" name="email" id="email" class="step-1">
+      <div class="err step-1" id="email-err">Email must be a valid address, e.g. me@mydomain.com</div>
+    
+      <!-- STEP 2 -->
+      <label for="pass" class="step-2">Lösenord</label>
+      <input type="password" name="pass" id="pass" class="step-2">
+      <div class="err step-2" id="pass-err">Password must alphanumeric (@, _ and - are also allowed) and be 8 - 20 characters</div>
+
+      <label for="pass" class="step-2">Bekräfta lösenordet</label>
+      <input type="password" name="passConf" id="passConf" class="step-2">
+      <div class="err step-2" id="passConf-err">Lösenorden matchar inte!</div>
+
+      <!-- Circles which indicates the steps of the form: -->
+      <div class="steps-container">
+        <span class="step active"></span>
+        <span class="step"></span>
+      </div>
+
+      <div class="regbtns">
+        <input type="button" value="Nästa" onclick="nextPrev(1)" class="active">
+        <input type="button" value="Förra" onclick="nextPrev(-1)">
+
+        <input type="submit" value="Skapa Konto">
+      </div>
+    </form>
+
+
+    <div id="register">Inget konto? <a href="http://">Skapa ett</a></div>
+
   </section>
 
   <script src="js/regex.js"></script>

@@ -1,0 +1,70 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='scss/login.css')
+    script(src='https://unpkg.com/eva-icons')
+    title Abbeflix | #{title}
+  body
+    header
+      a#logo(href='/') Abbeflix
+      i(data-eva='arrow-forward-outline', data-eva-fill='#fff', data-eva-height='28', data-eva-width='28')
+    section#login-form
+      form#login.active(action='POST')
+        h1 V&auml;lkommen!
+        p Lorem Ipsum is simply dummy text of the
+
+        label(for='email') E-post
+        input#email(type='text', name='email')
+        #email-err.err Email must be a valid address, e.g. me@mydomain.com
+        label(for='pass') L&ouml;senord
+        input#pass(type='password', name='pass')
+        #pass-err.err
+          | Password must alphanumeric (@, _ and - are also allowed) and be 8 - 20 characters
+        .under-input
+          #remember Kom ih&aring;g mig!
+          a(href='http://') Gl&ouml;mde L&ouml;senord
+        input(type='submit', value='Logga In')
+      
+      form#signup(action='POST')
+        h1 V&auml;lkommen Tillbaks!
+        p Lorem Ipsum is simply dummy text of the
+        // STEP 1
+        label.step-1(for='name') Namn
+        input#name.step-1(type='text', name='name')
+        #name-err.err.step-1 Email must be a valid address, e.g. me@mydomain.com
+        label.step-1(for='email') E-post
+        input#email.step-1(type='text', name='email')
+        #email-err.err.step-1 Email must be a valid address, e.g. me@mydomain.com
+        
+        // STEP 2
+        label.step-2(for='pass') L&ouml;senord
+        input#pass.step-2(type='password', name='pass')
+        #pass-err.err.step-2
+          | Password must alphanumeric (@, _ and - are also allowed) and be 8 - 20 characters
+        label.step-2(for='pass') Bekr&auml;fta l&ouml;senordet
+        input#passConf.step-2(type='password', name='passConf')
+        #passConf-err.err.step-2 L&ouml;senorden matchar inte!
+        
+        // Circles which indicates the steps of the form:
+        .steps-container
+          span.step.active
+          span.step
+        .regbtns
+          input.active(type='button', value='Nästa', class='nxtBtn')
+          input(type='button', value='Förra', class='brvBtn')
+          input(type='submit', value='Skapa Konto')
+      
+      #registerBtn.auth-link
+        | Inget konto? 
+        span(class='register link') Skapa ett
+
+      #loginBtn.auth-link
+        | Är du medlem? 
+        span(class='login-link link') Logga In
+
+    script(src='js/bundle.js')
+    script.
+      eva.replace()

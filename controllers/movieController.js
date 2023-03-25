@@ -7,7 +7,8 @@ const { deleteOne, updateOne, createOne, getAll } = require('./handlerFactory');
 exports.aliasTopMovies = (req, res, next) => {
   req.query.limit = '10';
   req.query.sort = '-popularity';
-  req.query.fields = 'original_title,genres';
+  req.query.fields =
+    'original_title,posterVertical,posterHorizontal,genres,_id';
 
   next();
 };

@@ -1,9 +1,9 @@
 const dotenv = require('dotenv');
 const fs = require('fs');
 const mongoose = require('mongoose');
-const Movie = require('./../models/movieModel');
 const https = require('https');
 const got = require('got');
+const Movie = require('../models/movieModel');
 
 dotenv.config({ path: './config.env' });
 
@@ -22,7 +22,7 @@ mongoose
   .then(() => console.log('DB connection successful 😎'));
 
 // READ JSON FILE
-let ids = [];
+const ids = [];
 const movies = [];
 
 // IMPORT DATA INTO DATAABASE

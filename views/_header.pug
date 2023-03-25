@@ -1,0 +1,34 @@
+header
+  nav
+    .left
+      a.logo(href='/') Abbeflix
+      ul
+        li.active
+          a(href='/') Hem
+        li
+          a(href='/movies') Filmer
+        li
+          a(href='/mylist') Min Lista
+    .right
+      i.search(data-eva='search-outline' data-eva-fill='#fff')
+      if !user
+        a#login(href='/auth') logga In
+      else
+        .profile
+          .profile-circle
+            img(src=`${user.photo}`)
+          .profile-wrappar
+            .profile-body
+              .profile-info
+                .profile-circle
+                  img(src=`${user.photo}`)
+                span
+                  .profile-name= user.name.split(' ')[0]
+                  .profile-email= user.email
+              a.profile-btns(href='/public/mylist.html')
+                i(data-eva='star-outline' data-eva-fill='#fff' data-eva-height='20' data-eva-width='20')
+                p Min Lista
+              a.profile-btns(href='/me')
+                i(data-eva='settings-outline' data-eva-fill='#fff' data-eva-height='20' data-eva-width='20')
+                p Mitt konto
+              .logout#loggaut Logga ut

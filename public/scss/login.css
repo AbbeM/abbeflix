@@ -20,18 +20,48 @@ header {
   width: 90%;
   z-index: 100;
 }
+header #logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e43569;
+  text-decoration: none;
+}
+
+.alert {
+  text-align: center;
+  color: #fff;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.5rem 0.8rem;
+  border-radius: 3px;
+  margin: auto;
+  margin-top: 1.5rem;
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.alert.alert-error {
+  background: #a83155;
+}
+.alert.alert-success {
+  background: #31a837;
+}
 
 #login-form {
+  padding-top: 2.5rem;
   display: flex;
-  gap: 7rem;
-  padding-left: 4rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
   height: 100vh;
 }
 #login-form form {
   min-width: 25rem;
-  padding-left: 3rem;
   display: flex;
   flex-direction: column;
+  width: -moz-min-content;
+  width: min-content;
 }
 #login-form form h1 {
   font-size: 2.2rem;
@@ -85,7 +115,6 @@ header {
   font-size: 0.9rem;
 }
 #login-form form input[type=submit] {
-  margin-top: 1.5rem;
   background: #F30A49;
   border: none;
   border-radius: 5px;
@@ -94,13 +123,17 @@ header {
   font-size: 1rem;
   cursor: pointer;
 }
-#login-form form #register {
+#login-form form .auth-link {
   color: #B4B4B4;
   text-decoration: none;
   font-size: 0.9rem;
-  margin: auto;
-  margin-top: auto;
-  margin-bottom: 1rem;
+}
+#login-form .link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+#login-form #loginBtn {
+  display: none;
 }
 #login-form .fom-right {
   background-image: url("https://m.media-amazon.com/images/M/MV5BMTgyNTc2MzI0Ml5BMl5BanBnXkFtZTgwMjUzODMyMTI@._V1_.jpg");
@@ -108,4 +141,52 @@ header {
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
+}
+
+#login, #signup {
+  display: none !important;
+}
+#login.active, #signup.active {
+  display: flex !important;
+}
+
+#signup .step-2 {
+  display: none;
+}
+#signup .regbtns {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+#signup .regbtns input {
+  display: none;
+  cursor: pointer;
+  height: -moz-min-content;
+  height: min-content;
+}
+#signup .regbtns input.active {
+  display: flex;
+}
+#signup .steps-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+#signup .steps-container .step {
+  width: 4rem;
+  height: 3px;
+  background: #474747;
+  border-radius: 3px;
+}
+#signup .steps-container .step.active {
+  background: #B4B4B4;
+}
+#signup .steps-container .step:nth-child(1) {
+  margin-right: 0.5rem;
+}
+#signup .steps-container .step:nth-last-child(1) {
+  margin-left: 0.5rem;
 }/*# sourceMappingURL=login.css.map */

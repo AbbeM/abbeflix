@@ -1,0 +1,77 @@
+extends base
+
+block content
+  img.hero-bk(src=`${movie.posterBackgrund}` alt=`${movie.originalTitle}`)
+  .bk-filter
+    
+  section.hero
+    img.movie-logo(src=`${movie.titleImg}` alt=`${movie.originalTitle}`)
+    .hero-btns
+      button.play
+        svg(width='25', height='25', viewBox='0 0 20 23', fill='none', xmlns='http://www.w3.org/2000/svg')
+          path(d='M19 9.76795C20.3333 10.5377 20.3333 12.4622 19 13.232L3.25 22.3253C1.91667 23.0951 0.25 22.1329 0.25 20.5933V2.40673C0.25 0.86713 1.91667 -0.0951197 3.25 0.674681L19 9.76795Z', fill='black')
+        p Spela upp
+      button.info
+        i(data-eva='info-outline', data-eva-fill='#fff', data-eva-height='30', data-eva-width='30')
+      button.add-to-list
+        i(data-eva='plus-outline', data-eva-fill='#fff', data-eva-height='30', data-eva-width='30')
+    .movie-info
+      .top 1# Top10
+      .year=movie.releaseDate.getYear()
+      .age=movie.age
+      for genre in movie.genres
+        .genre=genre
+      .time=movie.runtime
+    .movie-sum=movie.overview
+  
+  section.movies-sec
+    h2.movies-tilte Trailer &amp; klipper
+    .movies
+      a(href='')
+        div
+          img(src='', alt='')
+      a(href='')
+        div
+          img(src='', alt='')
+  
+  section.actors-sec
+    h2 Medverkande
+    .actors
+      for actor in movie.actors
+        a.actor(href=`/actors/${actor._id}`)
+            .actor-pic(style=`background-image: url(${actor.photo})`)
+            .actor-name=actor.name
+            .actor-roll Spiderman
+      
+  
+  section.movie-info-sec
+    h2=`Om filmen ${movie.originalTitle}`
+    .movie-info
+      .left
+        .item
+          h3 Genre
+          for genre in movie.genres
+            p=genre
+        .item
+          h3 Regi
+          p Joe Ahearne
+        .item
+          h3 budget
+          p=movie.budget + '$'
+      .right
+        .item.producenter
+          h3 Producenter
+          p TriStar Pictures, Entertainment One JuVee Productions, Jack Blue Productions
+        .item
+          h3 Spr&aring;k
+          p=movie.originalLanguage
+        .item
+          h3 Inkomst
+          p=movie.revenue + '$'
+  
+  section.movies-sec
+    h2.movies-tilte Actionfilmer
+    .movies
+      each movie in actionMovies
+        a(href=`/movie/${movie.slug}`)
+          img(src=`${movie.posterHorizontal}` alt=`${movie.originalTitle}`)

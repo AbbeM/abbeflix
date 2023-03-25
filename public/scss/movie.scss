@@ -33,9 +33,31 @@ section.hero {
 }
 
 section.actors-sec {
+
+  ::-webkit-scrollbar {
+    height: 5px !important;
+    display: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $color-gray-1;
+    width: 1px;
+    height: 1px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    margin-left: 10rem;
+    margin-top: 2rem;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
   .actors {
     display: flex;
     gap: 1.5rem;
+    overflow-x: scroll;
 
     .actor {
       margin-top: 1rem;
@@ -46,6 +68,8 @@ section.actors-sec {
         height: 6.25rem;
         border-radius: 50%;
         background: $color-gray-1;
+        background-size: cover;
+        background-position: center;
       }
 
       .actor-name {

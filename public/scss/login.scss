@@ -20,20 +20,50 @@ header {
   margin: 2rem 3rem;
   width: 90%;
   z-index: 100;
+
+  #logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e43569;
+    text-decoration: none;
+  }
+}
+
+.alert {
+  text-align: center;
+  color: #fff;
+  width: max-content;
+  padding: 0.5rem 0.8rem;
+  border-radius: 3px;
+  margin: auto;
+  margin-top: 1.5rem;
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  &.alert-error {
+    background: #a83155;
+  }
+
+  &.alert-success {
+    background: #31a837;
+  }
 }
 
 #login-form {
+  padding-top: 2.5rem;
   display: flex;
-  gap: 7rem;
-  padding-left: 4rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
   height: 100vh;
-
 
   form {
     min-width: 25rem;
-    padding-left: 3rem;
     display: flex;
     flex-direction: column;
+    width: min-content;
 
     h1 {
       font-size: 2.2rem;
@@ -99,7 +129,6 @@ header {
     }
 
     input[type="submit"] {
-      margin-top: 1.5rem;
       background: #F30A49;
       border: none;
       border-radius: 5px;
@@ -109,14 +138,20 @@ header {
       cursor: pointer;
     }
 
-    #register {
+    .auth-link {
       color: #B4B4B4;
       text-decoration: none;
       font-size: 0.9rem;
-      margin: auto;
-      margin-top: auto;
-      margin-bottom: 1rem;
     }
+  }
+
+  .link {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  #loginBtn {
+    display: none;
   }
 
   .fom-right {
@@ -125,5 +160,63 @@ header {
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
+  }
+}
+
+#login, #signup {
+  display: none !important;
+
+  &.active {
+    display: flex !important;
+  }
+}
+
+#signup {
+  .step-2 {
+    display: none;
+  }
+
+  .regbtns {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    input {
+      display: none;
+      cursor: pointer;
+      height: min-content;
+
+      &.active {
+        display: flex;
+      }
+    }
+  }
+
+  .steps-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    
+    .step {
+      width: 4rem;
+      height: 3px;
+      background: #474747;
+      border-radius: 3px;
+
+      &.active {
+        background: #B4B4B4;
+      }
+
+      &:nth-child(1) {
+        margin-right: 0.5rem;
+      }
+
+      &:nth-last-child(1) {
+        margin-left: 0.5rem;
+      }
+    }
   }
 }
