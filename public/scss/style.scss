@@ -59,6 +59,16 @@ section {
   color: #e43569;
 }
 
+.error-page {
+  height: calc(100vh - 6rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  color: $color-gray-txt;
+}
+
 header {
   width: 100%;
   position: fixed;
