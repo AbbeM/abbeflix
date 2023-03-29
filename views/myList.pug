@@ -1,0 +1,9 @@
+extends base
+
+block content
+  section.mylist-sec
+    h2 Min Lista
+    .movies
+      each movie in myList
+        a(href=`/movie/${movie.movie._id}`)
+          img(src=`${movie.movie.posterHorizontal}` alt=`${movie.movie.originalTitle}`)

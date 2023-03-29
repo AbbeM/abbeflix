@@ -1,3 +1,4 @@
+const Favorit = require('../models/favoritModel');
 const Movie = require('../models/movieModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
@@ -49,5 +50,16 @@ exports.getAuth = catchAsync(async (req, res, next) => {
 exports.getMe = catchAsync(async (req, res, next) => {
   res.status(200).render('me', {
     title: 'Mina Sidor',
+  });
+});
+
+exports.getMyList = catchAsync(async (req, res, next) => {
+  const myList = await Favorit.find();
+
+  console.log(myList);
+
+  res.status(200).render('myList', {
+    title: 'Min Lista',
+    myList,
   });
 });

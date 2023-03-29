@@ -5,6 +5,7 @@ const {
   getMovie,
   getAuth,
   getMe,
+  getMyList,
 } = require('../controllers/viewsController');
 
 const router = express.Router();
@@ -16,5 +17,6 @@ router.get('/movie/:id', getMovie);
 
 router.get('/auth', getAuth);
 router.get('/me', protect, getMe);
+router.get('/myList', protect, getMyList);
 
 module.exports = router;

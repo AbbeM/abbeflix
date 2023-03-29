@@ -1,6 +1,6 @@
 /* eslint-disable */
 import '@babel/polyfill'
-import { login, sigup, logout } from './auth'
+import { login, sigup, logout, addToFavorit } from './auth'
 
 let loginError = false;
 
@@ -17,6 +17,7 @@ const nxtBtn = document.querySelector('.nxtBtn');
 const brvBtn = document.querySelector('.brvBtn');
 const regbtns = document.querySelectorAll('.regbtns input');
 const logoutbtnA = document.querySelector('#loggaut')
+const addToListBtn = document.querySelector('.add-to-list');
 
 // ELEMENTS
 const step1Elements = document.querySelectorAll('.step-1');
@@ -175,5 +176,15 @@ if (signupForm) {
 if (logoutbtnA) {
   logoutbtnA.addEventListener('click', (e) => {
     logout();
+  })
+}
+
+if (addToListBtn) {
+  addToListBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const movieId = e.target.getAttribute('movieId')
+    
+    addToFavorit(movieId);
+
   })
 }

@@ -50,3 +50,17 @@ export const logout = async () => {
     showAlert('error', 'misslyckades')
   }
 }
+
+export const addToFavorit = async (movieId) => { 
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: `http://127.0.0.1:8000/api/v1/movies/${movieId}/favorits`,
+    });
+
+    if(res.data.status == 'success') console.log('success')
+
+  } catch (err) {
+    showAlert('error', 'misslyckades')
+  }
+}

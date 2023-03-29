@@ -34,8 +34,14 @@ app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
     directives: {
-      'img-src': ["'self'", 'https: data:'],
+      'default-src': ["'self'"],
+      'img-src': ["'self'", 'https:', 'data:', 'o104379.ingest.sentry.io'],
       'script-src': ["'self'", 'cdnjs.cloudflare.com'],
+      'connect-src': [
+        "'self'",
+        'ws://127.0.0.1:50567',
+        'https://o104379.ingest.sentry.io',
+      ],
     },
   })
 );
