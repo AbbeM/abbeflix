@@ -15,7 +15,7 @@ block content
         i(data-eva='info-outline', data-eva-fill='#fff', data-eva-height='30', data-eva-width='30')
       button.add-to-list(movieId=`${movie._id}`)
         i(data-eva='plus-outline', data-eva-fill='#fff', data-eva-height='30', data-eva-width='30')
-        p(movieId=`${movie._id}`) Lägg Till
+        p(movieId=`${movie._id}`)= isFavorite ? 'Ta Bort' : 'Lägg Till'
     .movie-info
       .top 1# Top10
       .year=movie.releaseDate.getYear()
@@ -27,6 +27,7 @@ block content
   
   section.movies-sec
     h2.movies-tilte Trailer &amp; klipper
+    h2= isFavorite
     .movies
       a(href='')
         div

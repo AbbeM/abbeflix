@@ -25,6 +25,13 @@ exports.getMovie = catchAsync(async (req, res, next) => {
   // 1) Get Movie Data From Collection
   const movie = await Movie.findById(req.params.id);
 
+  const favorit = await Favorit.find({
+    user: req.user.id,
+    movie: req.params.id,
+  });
+
+  const isFavorite = favorit.length > 0;
+
   const actionMovies = await Movie.find({ genres: { $in: ['Action'] } }).limit(
     20
   );
@@ -38,6 +45,7 @@ exports.getMovie = catchAsync(async (req, res, next) => {
     // title: movie.originalTitle,
     movie,
     actionMovies,
+    isFavorite,
   });
 });
 
@@ -54,7 +62,9 @@ exports.getMe = catchAsync(async (req, res, next) => {
 });
 
 exports.getMyList = catchAsync(async (req, res, next) => {
-  const myList = await Favorit.find();
+  const myList = await Favorit.find({
+    user: req.user.id,
+  });
 
   console.log(myList);
 

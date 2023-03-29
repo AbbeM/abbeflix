@@ -32,6 +32,38 @@ section {
   color: #e43569;
 }
 
+.error-page {
+  height: calc(100vh - 6rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  color: #D1D1D1;
+}
+
+.alert {
+  text-align: center;
+  color: #fff;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.5rem 0.8rem;
+  border-radius: 3px;
+  margin: auto;
+  margin-top: 1.5rem;
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 100;
+}
+.alert.alert-error {
+  background: #a83155;
+}
+.alert.alert-success {
+  background: #31a837;
+}
+
 header {
   width: 100%;
   position: fixed;

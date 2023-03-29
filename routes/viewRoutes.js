@@ -13,7 +13,7 @@ const router = express.Router();
 router.use(isLoggedIn);
 
 router.get('/', getMovies);
-router.get('/movie/:id', getMovie);
+router.get('/movie/:id', protect, getMovie);
 
 router.get('/auth', getAuth);
 router.get('/me', protect, getMe);

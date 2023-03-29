@@ -184,7 +184,7 @@ if (addToListBtn) {
     e.preventDefault();
     const movieId = e.target.getAttribute('movieId')
     
-    addToFavorit(movieId);
+    addToFavorit(movieId, e.target);
 
   })
 }

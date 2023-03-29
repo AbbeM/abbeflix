@@ -69,6 +69,29 @@ section {
   color: $color-gray-txt;
 }
 
+.alert {
+  text-align: center;
+  color: #fff;
+  width: max-content;
+  padding: 0.5rem 0.8rem;
+  border-radius: 3px;
+  margin: auto;
+  margin-top: 1.5rem;
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 1000;
+
+  &.alert-error {
+    background: #a83155;
+  }
+
+  &.alert-success {
+    background: #31a837;
+  }
+}
+
 header {
   width: 100%;
   position: fixed;

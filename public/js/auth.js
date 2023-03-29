@@ -51,14 +51,32 @@ export const logout = async () => {
   }
 }
 
-export const addToFavorit = async (movieId) => { 
+export const addToFavorit = async (movieId, addBtn) => { 
   try {
-    const res = await axios({
-      method: 'POST',
-      url: `http://127.0.0.1:8000/api/v1/movies/${movieId}/favorits`,
+    const favoritMovie = await axios({
+      method: 'GET',
+      url: `http://127.0.0.1:8000/api/v1/movies/${movieId}`,
     });
 
-    if(res.data.status == 'success') console.log('success')
+    if(!favoritMovie.data.data.isFavorite) {
+      const res = await axios({
+        method: 'POST',
+        url: `http://127.0.0.1:8000/api/v1/movies/${movieId}/favorits`,
+      });
+  
+      if(res.data.status == 'success') showAlert('success', 'Added to list')
+
+      addBtn.textContent = 'Ta Bord'
+
+    } else {
+      await axios({
+        method: 'DELETE',
+        url: `http://127.0.0.1:8000/api/v1/movies/${movieId}/favorits`,
+      });
+  
+      showAlert('success', 'Deleted from list')
+      addBtn.textContent = 'Lägg Till'
+    }
 
   } catch (err) {
     showAlert('error', 'misslyckades')
