@@ -66,7 +66,7 @@ export const addToFavorit = async (movieId, addBtn) => {
   
       if(res.data.status == 'success') showAlert('success', 'Added to list')
 
-      addBtn.textContent = 'Ta Bord'
+      addBtn.textContent = 'Ta Bort'
 
     } else {
       await axios({
@@ -80,5 +80,22 @@ export const addToFavorit = async (movieId, addBtn) => {
 
   } catch (err) {
     showAlert('error', 'misslyckades')
+  }
+}
+
+export const rateMovie = async (movieId, addBtn) => { 
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: `http://127.0.0.1:8000/api/v1/movies/${movieId}/reviews`,
+      data: { rating: 5 },
+    });
+
+    if(res.data.status == 'success') showAlert('success', 'Rated')
+
+    addBtn.textContent = 'Ta Bort'
+
+  } catch (err) {
+    showAlert('error', err.message)
   }
 }

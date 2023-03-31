@@ -11,10 +11,11 @@ block content
         svg(width='25', height='25', viewBox='0 0 20 23', fill='none', xmlns='http://www.w3.org/2000/svg')
           path(d='M19 9.76795C20.3333 10.5377 20.3333 12.4622 19 13.232L3.25 22.3253C1.91667 23.0951 0.25 22.1329 0.25 20.5933V2.40673C0.25 0.86713 1.91667 -0.0951197 3.25 0.674681L19 9.76795Z', fill='black')
         p Spela upp
-      button.info
+      button.rate
         i(data-eva='info-outline', data-eva-fill='#fff', data-eva-height='30', data-eva-width='30')
+        p(movieId=`${movie._id}`) rate
       button.add-to-list(movieId=`${movie._id}`)
-        i(data-eva='plus-outline', data-eva-fill='#fff', data-eva-height='30', data-eva-width='30')
+        i.fa-solid.fa-plus
         p(movieId=`${movie._id}`)= isFavorite ? 'Ta Bort' : 'Lägg Till'
     .movie-info
       .top 1# Top10
