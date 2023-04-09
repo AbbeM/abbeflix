@@ -140,6 +140,13 @@ exports.isLoggedIn = async (req, res, next) => {
   next();
 };
 
+exports.requireAuth = (req, res, next) => {
+  if (!req.user) {
+    return res.redirect('/login');
+  }
+  next();
+};
+
 exports.logout = (req, res) => {
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),

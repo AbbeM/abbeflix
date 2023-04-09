@@ -1,5 +1,9 @@
 const express = require('express');
-const { isLoggedIn, protect } = require('../controllers/authController');
+const {
+  isLoggedIn,
+  protect,
+  requireAuth,
+} = require('../controllers/authController');
 const {
   getMovies,
   getMovie,
@@ -13,10 +17,10 @@ const router = express.Router();
 router.use(isLoggedIn);
 
 router.get('/', getMovies);
-router.get('/movie/:id', protect, getMovie);
+router.get('/movie/:id', protect, requireAuth, getMovie);
 
 router.get('/auth', getAuth);
-router.get('/me', protect, getMe);
-router.get('/myList', protect, getMyList);
+router.get('/me', protect, requireAuth, getMe);
+router.get('/myList', protect, requireAuth, getMyList);
 
 module.exports = router;

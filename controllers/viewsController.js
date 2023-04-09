@@ -1,5 +1,6 @@
 const Favorit = require('../models/favoritModel');
 const Movie = require('../models/movieModel');
+const Review = require('../models/reviewModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
@@ -30,6 +31,11 @@ exports.getMovie = catchAsync(async (req, res, next) => {
     movie: req.params.id,
   });
 
+  const rating = await Review.find({
+    user: req.user.id,
+    movie: req.params.id,
+  });
+
   const isFavorite = favorit.length > 0;
 
   const actionMovies = await Movie.find({ genres: { $in: ['Action'] } }).limit(
@@ -46,6 +52,8 @@ exports.getMovie = catchAsync(async (req, res, next) => {
     movie,
     actionMovies,
     isFavorite,
+    currentUser: req.user.id,
+    rating: rating[0].rating,
   });
 });
 

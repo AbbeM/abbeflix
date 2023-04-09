@@ -1,6 +1,15 @@
 /* eslint-disable */
 import axios from "axios";
 import { showAlert } from "./alerts";
+import jwt_decode from 'jwt-decode';
+
+// const currentUserId = jwt_decode(localStorage.getItem('jwt')).user.id;
+
+const token = localStorage.getItem('jwt'); // Hämta JWT-token från localStorage
+// const decoded = jwt_decode(token); // Avkoda JWT-token för att hämta användarens uppgifter, inklusive ID
+// const currentUserId = decoded.user.id; 
+
+console.log(`user: ${token}`);
 
 export const login = async (email, password) => {
   try {
@@ -83,19 +92,42 @@ export const addToFavorit = async (movieId, addBtn) => {
   }
 }
 
-export const rateMovie = async (movieId, addBtn) => { 
+export const rateMovie = async (movieId, user, rating) => { 
   try {
+    // Hämta recensioner för filmen
     const res = await axios({
-      method: 'POST',
+      method: 'GET',
       url: `http://127.0.0.1:8000/api/v1/movies/${movieId}/reviews`,
-      data: { rating: 5 },
     });
 
-    if(res.data.status == 'success') showAlert('success', 'Rated')
+    // Kolla om användaren har betygsatt filmen tidigare
+    const review = res.data.data.docs.find(review => review.user === user);
 
-    addBtn.textContent = 'Ta Bort'
+    // Om användaren har betygsatt filmen, skicka en PATCH-förfrågan
+    // för att uppdatera betyget. Annars, skicka en POST-förfrågan
+    if (review) {
+      const updateRes = await axios({
+        method: 'PATCH',
+        url: `http://127.0.0.1:8000/api/v1/movies/${movieId}/reviews/${review.id}`,
+        data: { rating },
+      });
+      
+      if (updateRes.data.status === 'success') {
+        showAlert('success', 'Rating updated');
+      }
+    } else {
+      const createRes = await axios({
+        method: 'POST',
+        url: `http://127.0.0.1:8000/api/v1/movies/${movieId}/reviews`,
+        data: { rating },
+      });
+      
+      if (createRes.data.status === 'success') {
+        showAlert('success', 'Rated');
+      }
+    }
 
   } catch (err) {
-    showAlert('error', err.message)
+    showAlert('error', err.message);
   }
 }

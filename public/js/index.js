@@ -24,6 +24,8 @@ const rateBtn = document.querySelector('.rate');
 const step1Elements = document.querySelectorAll('.step-1');
 const step2Elements = document.querySelectorAll('.step-2');
 const steps = document.querySelectorAll('.step');
+const stars = document.querySelectorAll('.rate svg')
+const rating = document.querySelector('.rate p').getAttribute('rating')
 
 // LAYOUTS
 const layout = document.querySelectorAll('.layout');
@@ -190,12 +192,30 @@ if (addToListBtn) {
   })
 }
 
-if (rateBtn) {
-  rateBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const movieId = e.target.getAttribute('movieId')
+// if (rateBtn) {
+//   rateBtn.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     const movieId = e.target.getAttribute('movieId')
     
-    rateMovie(movieId, e.target);
+//     rateMovie(movieId, e.target);
 
+//   })
+// }
+
+if (stars) {
+  stars.forEach((item, index1) => {
+    item.addEventListener('click', (e) => {
+      const movieId = e.target.getAttribute('movieid')
+      const user = e.target.getAttribute('currentuser')
+      rateMovie(movieId, user, (index1+1)*2);
+      
+      stars.forEach((star, index2) => {
+        index1 >= index2 ? star.classList.add('active') : star.classList.remove('active') 
+      })
+    })
+  })
+
+  stars.forEach((star, index2) => {
+    ((rating/2) - 1) >= index2 ? star.classList.add('active') : star.classList.remove('active') 
   })
 }

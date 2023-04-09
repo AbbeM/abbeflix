@@ -254,6 +254,55 @@ header {
   background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(33,33,32,1) 75%);
 }
 
+.rate {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  cursor: pointer;
+  background: $color-gray-1;
+  border: none;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 5px;
+  max-width: max-content;
+  margin-left: 0.75rem;
+
+  &:hover {
+    svg {
+      display: block;
+    }
+
+    p {
+      display: none;
+    }
+  }
+
+  svg {
+    display: none;
+    margin-top: 0 !important;
+    box-sizing: border-box; /* Räkna gränserna som en del av elementets storlek */
+    width: 24px;
+    height: auto;
+
+    &.active {
+      path.star-body {
+        fill: rgb(240,211,85);
+      }
+    }
+
+    path.star-border {
+      fill: rgb(65,64,66);
+      fill-opacity: 0.1;
+      fill-rule: nonzero;
+    }
+
+    path.star-body {
+      fill: rgb(202, 202, 202);
+      fill-rule: nonzero;
+    }
+  }
+}
+
 section.hero {
   padding: 4rem $width-left 0 0;
 
@@ -272,6 +321,7 @@ section.hero {
     margin-top: 2rem;
 
     button {
+      cursor: pointer;
       background: $color-gray-1;
       border: none;
       color: #fff;
@@ -290,11 +340,21 @@ section.hero {
         padding: 0.5rem 1.5rem;
         margin-left: 0;
 
+        &:hover {
+          background: #ececec;
+        }
+
         p {
           margin-left: 0.35rem;
         }
       }
+
+      &:hover {
+        background: $color-gray-2;
+      }
     }
+
+    
   }
 }
 
